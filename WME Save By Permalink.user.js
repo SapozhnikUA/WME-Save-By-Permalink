@@ -4,6 +4,8 @@
 // @version     0.0.1
 // @description none
 // @author      ixxvivxxi
+// @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Save%20By%20Permalink.user.js
+// @downloadURL  https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Save%20By%20Permalink.user.js
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // ==/UserScript==
