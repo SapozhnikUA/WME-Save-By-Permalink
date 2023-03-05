@@ -36,13 +36,14 @@
     // получаем данные для загрузки
     for (const [key, value] of hashParams.entries()) {
       updateProps[key] = value;
-      console.log ('PL hash' + key + ' = ' + value);
+      console.log ('PL hash: ' + key + ' = ' + value);
     }
 
     const searchParams = new URLSearchParams(location.search.replace('?', '')); // Получаем данные в ссылке после "?"
     const segments = await Promise.all(
-      console.log( searchParams.getAll('segments').map((id) => waitLoadingData(id)),
-    ));
+      searchParams.getAll('segments').map((id) => waitLoadingData(id)),
+    );
+    console.log (segments[0].type);
 
     segments.map((segment) => {
       W.model.actionManager.add(new UpdateObject(segment, updateProps));
