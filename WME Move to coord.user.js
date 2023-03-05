@@ -30,8 +30,15 @@
     function bootstrap() {
         if (W && W.loginManager && W.loginManager.user && W.map && require) {
             UpdateObject = require('Waze/Action/UpdateObject');
+        } else {
+            setTimeout(bootstrap, 200);
+        }
+    }
 
-            // перебор элдементов массива
+    bootstrap();
+
+    
+            // перебор элементов массива
             url_list.forEach(url => {
                 let lat, lon;
                 url = new URL(url);
@@ -52,13 +59,5 @@
                 console.log(url);
             });
 
-
-
-        } else {
-            setTimeout(bootstrap, 200);
-        }
-    }
-
-    bootstrap();
 
 })();
