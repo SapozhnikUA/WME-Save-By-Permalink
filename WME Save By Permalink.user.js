@@ -11,7 +11,7 @@
 // ==/UserScript==
 
 
-// https://waze.com/uk/editor?env=row&lat=46.59845&lon=33.07120&s=8379753821591&zoomLevel=18#fwdMaxSpeed=50
+// https://waze.com/uk/editor?env=row&lat=46.59851&lon=33.07064&s=8379753821591&zoomLevel=18&segments=427057335#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30
 
 (function main() {
   'use strict';
@@ -33,15 +33,16 @@
   async function updateObjects() {
     const updateProps = {}; // создаем объект
     const hashParams = new URLSearchParams(location.hash.replace('#', '')); // Создаем new экземпляр объекта
+    // получаем данные для загрузки
     for (const [key, value] of hashParams.entries()) {
       updateProps[key] = value;
-      console.log (key + ' = ' + value)
+      console.log ('PL hash' + key + ' = ' + value);
     }
 
-    const searchParams = new URLSearchParams(location.search.replace('?', ''));
+    const searchParams = new URLSearchParams(location.search.replace('?', '')); // Получаем данные в ссылке после "?"
     const segments = await Promise.all(
-      searchParams.getAll('segments').map((id) => waitLoadingData(id)),
-    );
+      console.log( searchParams.getAll('segments').map((id) => waitLoadingData(id)),
+    ));
 
     segments.map((segment) => {
       W.model.actionManager.add(new UpdateObject(segment, updateProps));
