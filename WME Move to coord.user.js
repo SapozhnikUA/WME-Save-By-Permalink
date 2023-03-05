@@ -47,7 +47,7 @@
 
                 // сдвигаемся на url
                 // W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(33.07064), parseFloat(46.59851)))
-                W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(lat), parseFloat(lon)));
+                W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(lon), parseFloat(lat)));
 
 
                 console.log(url);
