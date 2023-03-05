@@ -49,7 +49,7 @@
                 // W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(33.07064), parseFloat(46.59851)))
                 W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(lon), parseFloat(lat)));
 
-                setTimeout(10000);
+                setTimeout(alert ('next'), 10000);
                 console.log(url);
             });
 
