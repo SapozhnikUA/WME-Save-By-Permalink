@@ -35,7 +35,7 @@
     const hashParams = new URLSearchParams(location.hash.replace('#', '')); // Создаем new экземпляр объекта
     for (const [key, value] of hashParams.entries()) {
       updateProps[key] = value;
-      console.log (key + ' = 'value)
+      console.log (key + ' = ' + value)
     }
 
     const searchParams = new URLSearchParams(location.search.replace('?', ''));
