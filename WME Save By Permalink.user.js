@@ -16,6 +16,18 @@
 (function main() {
   'use strict';
 
+    const FLAGS_BIT = {
+    tunnel: 0b00000001,
+    // ???
+    // a     : 0b00000010,
+    // b     : 0b00000100,
+    // c     : 0b00001000,
+    unpaved: 0b00010000,
+    headlights: 0b00100000,
+    hov:        0b10000000,
+  };
+
+
   let UpdateObject;
 
   function waitLoadingData(id) {
@@ -43,13 +55,18 @@
     const segments = await Promise.all(
       searchParams.getAll('segments').map((id) => waitLoadingData(id)),
     );
-    console.log (segments[0].type);
+
+      let flags = segments[0].attributes.flags//.toString(2);
+      console.log (flags.toString(2));
 
     segments.map((segment) => {
       W.model.actionManager.add(new UpdateObject(segment, updateProps));
     });
+      flags &= ~(FLAGS_BIT.unpaved);
+      console.log (FLAGS_BIT.unpaved.toString(2));
+      console.log (flags.toString(2));
 
-    W.commands.request('save:start');
+    // W.commands.request('save:start');
   }
 
 
@@ -58,7 +75,7 @@
     if (W && W.loginManager && W.loginManager.user && W.map && require) {
       UpdateObject = require('Waze/Action/UpdateObject');
 
-      // Если есть хеш (#) проводим обновление 
+      // Если есть хеш (#) проводим обновление
       if (location.hash) {
         updateObjects();
       }
