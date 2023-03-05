@@ -10,6 +10,9 @@
 // @match       https://*.waze.com/*/editor*
 // ==/UserScript==
 
+
+// https://waze.com/uk/editor?env=row&lat=46.59845&lon=33.07120&s=8379753821591&zoomLevel=18#fwdMaxSpeed=50
+
 (function main() {
   'use strict';
 
@@ -28,10 +31,11 @@
   }
 
   async function updateObjects() {
-    const updateProps = {};
-    const hashParams = new URLSearchParams(location.hash.replace('#', ''));
+    const updateProps = {}; // создаем объект
+    const hashParams = new URLSearchParams(location.hash.replace('#', '')); // Создаем new экземпляр объекта
     for (const [key, value] of hashParams.entries()) {
       updateProps[key] = value;
+      console.log (key + ' = 'value)
     }
 
     const searchParams = new URLSearchParams(location.search.replace('?', ''));
@@ -46,10 +50,13 @@
     W.commands.request('save:start');
   }
 
+
+
   function bootstrap() {
     if (W && W.loginManager && W.loginManager.user && W.map && require) {
       UpdateObject = require('Waze/Action/UpdateObject');
 
+      // Если есть хеш (#) проводим обновление 
       if (location.hash) {
         updateObjects();
       }
