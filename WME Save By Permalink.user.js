@@ -10,21 +10,21 @@
 // @match       https://*.waze.com/*/editor*
 // ==/UserScript==
 
-
-// https://waze.com/uk/editor?env=row&lat=46.59851&lon=33.07064&s=8379753821591&zoomLevel=18&segments=427057335#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30
+// Флаги flags_unset либо flags_set =  unpaved,headlights
+// https://waze.com/uk/editor?env=row&lat=46.59851&lon=33.07064&s=8379753821591&zoomLevel=18&segments=427057335#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_unset=unpaved,headlights
 
 (function main() {
   'use strict';
 
-    const FLAGS_BIT = {
+  const FLAGS_BIT = {
     tunnel: 0b00000001,
-    // ???
-    // a     : 0b00000010,
-    // b     : 0b00000100,
-    // c     : 0b00001000,
+    // a     :  0b00000010,
+    // b     :  0b00000100,
+    // c     :  0b00001000,
     unpaved: 0b00010000,
     headlights: 0b00100000,
-    hov:        0b10000000,
+    // d     :  0b01000000,
+    nearbyHOV: 0b10000000,
   };
 
 
@@ -43,28 +43,49 @@
   }
 
   async function updateObjects() {
-    const updateProps = {}; // создаем объект
-    const hashParams = new URLSearchParams(location.hash.replace('#', '')); // Создаем new экземпляр объекта
-    // получаем данные для загрузки
-    for (const [key, value] of hashParams.entries()) {
-      updateProps[key] = value;
-      console.log ('PL hash: ' + key + ' = ' + value);
-    }
 
     const searchParams = new URLSearchParams(location.search.replace('?', '')); // Получаем данные в ссылке после "?"
     const segments = await Promise.all(
       searchParams.getAll('segments').map((id) => waitLoadingData(id)),
     );
+    let flags = segments[0].attributes.flags//.toString(2); // как правильно получать??????????????????????
+    // console.log(flags.toString(2));
 
-      let flags = segments[0].attributes.flags//.toString(2);
-      console.log (flags.toString(2));
+
+    const updateProps = {}; // создаем объект
+    const hashParams = new URLSearchParams(location.hash.replace('#', '')); // Создаем new экземпляр объекта
+    // получаем данные для загрузки
+    for (const [key, value] of hashParams.entries()) {
+
+      // обрабатываем флаги
+      // снимаем ненужные
+      if (key == 'flags_unset') {
+        if (value.includes('unpaved')) flags &= ~(FLAGS_BIT.unpaved);
+        if (value.includes('tunnel')) flags &= ~(FLAGS_BIT.tunnel);
+        if (value.includes('headlights')) flags &= ~(FLAGS_BIT.headlights);
+        if (value.includes('nearbyHOV')) flags &= ~(FLAGS_BIT.nearbyHOV);
+        updateProps['flags'] = flags;
+      }
+      // ставим нужные
+      if (key == 'flags_set') {
+        if (value.includes('unpaved')) flags |= (FLAGS_BIT.unpaved);
+        if (value.includes('tunnel')) flags |= (FLAGS_BIT.tunnel);
+        if (value.includes('headlights')) flags |= (FLAGS_BIT.headlights);
+        if (value.includes('nearbyHOV')) flags |= (FLAGS_BIT.nearbyHOV);
+        updateProps['flags'] = flags;
+      }
+
+      if (key != 'flags_set' && key != 'flags_unset') {
+        updateProps[key] = value;
+      }
+      console.log('PL hash: ' + key + ' = ' + value);
+    }
+    console.log(updateProps);
 
     segments.map((segment) => {
       W.model.actionManager.add(new UpdateObject(segment, updateProps));
     });
-      flags &= ~(FLAGS_BIT.unpaved);
-      console.log (FLAGS_BIT.unpaved.toString(2));
-      console.log (flags.toString(2));
+
 
     // W.commands.request('save:start');
   }
