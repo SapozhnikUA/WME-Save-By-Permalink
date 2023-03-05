@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME move to coord
 // @namespace   WazeUA
-// @version     0.0.3
+// @version     0.0.2
 // @description none
 // @author      ixxvivxxi
 // @match       https://*.waze.com/editor*
@@ -30,15 +30,8 @@
     function bootstrap() {
         if (W && W.loginManager && W.loginManager.user && W.map && require) {
             UpdateObject = require('Waze/Action/UpdateObject');
-        } else {
-            setTimeout(bootstrap, 200);
-        }
-    }
 
-    bootstrap();
-
-    
-            // перебор элементов массива
+            // перебор элдементов массива
             url_list.forEach(url => {
                 let lat, lon;
                 url = new URL(url);
@@ -53,11 +46,22 @@
 
                 // сдвигаемся на url
                 // W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(33.07064), parseFloat(46.59851)))
-                W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(lon), parseFloat(lat)));
-
+                move_map (lon, lat);
                 alert ('next');
                 console.log(url);
             });
 
+
+
+        } else {
+            setTimeout(bootstrap, 200);
+        }
+    }
+
+    bootstrap();
+
+    async function move_map (lon, lat) {
+        await W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(lon), parseFloat(lat)));
+}
 
 })();
