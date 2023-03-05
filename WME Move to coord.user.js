@@ -22,6 +22,7 @@
     let url_list = [
         "https://waze.com/uk/editor?env=row&lat=46.59825&lon=33.07060&s=8379753821591&zoomLevel=19&segments=427057335",
         "https://waze.com/uk/editor?env=row&lat=46.67763&lon=32.53486&s=8379753821591&zoomLevel=17&segments=379450718",
+        "https://waze.com/uk/editor?env=row&lat=46.14626&lon=32.77701&s=8379753821591&zoomLevel=16&segments=427057335",
     ];
 
     let UpdateObject;
@@ -30,11 +31,9 @@
         if (W && W.loginManager && W.loginManager.user && W.map && require) {
             UpdateObject = require('Waze/Action/UpdateObject');
 
-
             // перебор элдементов массива
             url_list.forEach(url => {
                 let lat, lon;
-
                 url = new URL(url);
                 // Получаем данные в ссылке после "?"
                 const CoordSearchParams = new URLSearchParams(url.search.replace('?', ''));
