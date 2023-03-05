@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME move to coord
 // @namespace   WazeUA
-// @version     0.0.2
+// @version     0.0.3
 // @description none
 // @author      ixxvivxxi
 // @match       https://*.waze.com/editor*
