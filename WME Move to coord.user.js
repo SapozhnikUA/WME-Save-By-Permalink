@@ -21,7 +21,7 @@
 
     let url_list = [
         "https://waze.com/uk/editor?env=row&lat=46.59825&lon=33.07060&s=8379753821591&zoomLevel=19&segments=427057335",
-        "https://waze.com/uk/editor?env=row&lat=46.59808&lon=33.07059&s=8379753821591&zoomLevel=19&segments=427057858",
+        "https://waze.com/uk/editor?env=row&lat=46.67763&lon=32.53486&s=8379753821591&zoomLevel=17&segments=379450718",
     ];
 
     let UpdateObject;
