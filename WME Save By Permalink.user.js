@@ -13,8 +13,19 @@
 // Флаги flags_unset либо flags_set =  unpaved,headlights
 // https://waze.com/uk/editor?env=row&lat=46.59851&lon=33.07064&s=8379753821591&zoomLevel=18&segments=427057335#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_unset=unpaved,headlights
 
+// Переход по кординатам
+// W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(33.07064), parseFloat(46.59851)))
+
+// Изменениеи ссылки URL в адресной строке
+// window.history.pushState("object or string", "Title", "/new-url");
+
 (function main() {
   'use strict';
+
+  let url_list = [
+    "https://waze.com/new-url?env=row&lat=46.59825&lon=33.07060&s=8379753821591&zoomLevel=19&segments=427057335",
+    "https://waze.com/new-url?env=row&lat=46.59808&lon=33.07059&s=8379753821591&zoomLevel=19&segments=427057858",
+  ];
 
   const FLAGS_BIT = {
     tunnel: 0b00000001,
@@ -106,4 +117,19 @@
   }
 
   bootstrap();
+
+  // перебор эдементов массива
+  url_list.forEach(url => {
+    // меняем url 
+      window.history.pushState("", "", url);
+      // Получаем данные в ссылке после "?"
+      const CoordsearchParams = new URLSearchParams(location.search.replace('?', '')); 
+      console.log (CoordsearchParams.lat);
+      console.log (CoordsearchParams.lon);
+
+      // сдвигаемся на url 
+      W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(33.07064), parseFloat(46.59851)));
+
+      console.log(url);
+  });
 })();
