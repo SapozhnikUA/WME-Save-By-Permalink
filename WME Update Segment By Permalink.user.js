@@ -9,7 +9,7 @@
 // ==/UserScript==
 
 // Флаги flags_unset либо flags_set =  unpaved,headlights
-// https://waze.com/uk/editor?env=row&lat=46.59851&lon=33.07064&s=8379753821591&zoomLevel=18&segments=427057335#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_unset=unpaved,headlights
+// https://waze.com/uk/editor?env=row&lat=46.59851&lon=33.07064&s=8379753821591&zoomLevel=18&segments=427057335#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=unpaved,headlights
 
 // Переход по кординатам
 // W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(33.07064), parseFloat(46.59851)))
@@ -18,8 +18,9 @@
   'use strict';
   let UpdateObject;
   let URL_LIST = [
-        'https://waze.com/uk/editor?env=row&lat=46.47500&lon=32.57322&s=8379753821591&zoomLevel=16&segments=42712420#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_unset=headlights1',
-        'https://waze.com/uk/editor?env=row&lat=46.47715&lon=32.56069&s=8379753821591&zoomLevel=16&segments=427124200#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_unset=unpaved,headlights',
+    'https://waze.com/uk/editor?env=row&lat=49.95085&lon=35.50452&s=8379753821591&zoomLevel=16&segments=427125678#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=headlights',
+    'https://waze.com/uk/editor?env=row&lat=46.47244&lon=32.56585&s=8379753821591&zoomLevel=16&segments=427125632#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=headlights',
+    'https://waze.com/uk/editor?env=row&lat=49.95085&lon=35.50452&s=8379753821591&zoomLevel=16&segments=427125677#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=unpaved,headlights',
   ];
   const FLAGS_BIT = {
     tunnel: 0b00000001,
@@ -61,8 +62,8 @@
       document.addEventListener(
         'wme-map-data-loaded',
         () => {
-          setTimeout(() => resolve(), 5000)
-          //resolve()
+          //setTimeout(() => resolve(), 2000)
+          resolve()
         },
         {
           once: true,
@@ -128,7 +129,7 @@
     });
 
 
-    // W.commands.request('save:start');
+    W.commands.request('save:start');
   }
 
 
