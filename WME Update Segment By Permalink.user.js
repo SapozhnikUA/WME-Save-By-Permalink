@@ -135,7 +135,6 @@
   }
 
 
-
   function bootstrap() {
     if (W && W.loginManager && W.loginManager.user && W.map && require) {
       UpdateObject = require('Waze/Action/UpdateObject');
