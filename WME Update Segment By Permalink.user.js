@@ -4,8 +4,6 @@
 // @version     0.0.2
 // @description none
 // @author      ixxvivxxi
-// @updateURL   https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Update%20Segment%20By%20Permalink.user.js
-// @downloadURL https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Update%20Segment%20By%20Permalink.user.js
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // ==/UserScript==
@@ -20,9 +18,21 @@
   'use strict';
   let UpdateObject;
   let URL_LIST = [
-    'https://waze.com/uk/editor?env=row&lat=49.95085&lon=35.50452&s=8379753821591&zoomLevel=16&segments=427125678#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=headlights',
-    'https://waze.com/uk/editor?env=row&lat=46.47244&lon=32.56585&s=8379753821591&zoomLevel=16&segments=427125632#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=headlights',
-    'https://waze.com/uk/editor?env=row&lat=49.95085&lon=35.50452&s=8379753821591&zoomLevel=16&segments=427125677#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=unpaved,headlights',
+'https://waze.com/uk/editor?env=row&lat=46.82960294&lon=32.74704568&marker=true&zoomLevel=18&segments=381032854#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.84661335&lon=32.75742926&marker=true&zoomLevel=18&segments=206075007#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.84430624&lon=32.75657349&marker=true&zoomLevel=18&segments=206075435#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.84322849&lon=32.75599945&marker=true&zoomLevel=18&segments=206075439#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.83877579&lon=32.75296167&marker=true&zoomLevel=18&segments=206075448#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.83747603&lon=32.75207497&marker=true&zoomLevel=18&segments=206075449#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.84160502&lon=32.75489184&marker=true&zoomLevel=18&segments=206075442#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.84016793&lon=32.75391140&marker=true&zoomLevel=18&segments=206075445#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.83566832&lon=32.75084429&marker=true&zoomLevel=18&segments=206075789#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.25680246&lon=32.29593133&marker=true&zoomLevel=18&segments=205347452#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.25443447&lon=32.29494283&marker=true&zoomLevel=18&segments=205347451#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.26273824&lon=32.29844328&marker=true&zoomLevel=18&segments=205346776#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.18226511&lon=32.32278945&marker=true&zoomLevel=18&segments=205348794#lockRank=2',
+'https://waze.com/uk/editor?env=row&lat=46.17922468&lon=32.32260352&marker=true&zoomLevel=18&segments=262174762#lockRank=2',
+
   ];
   const FLAGS_BIT = {
     tunnel: 0b00000001,
@@ -64,8 +74,8 @@
       document.addEventListener(
         'wme-map-data-loaded',
         () => {
-          //setTimeout(() => resolve(), 2000)
-          resolve()
+          setTimeout(() => resolve(), 1000)
+          //resolve()
         },
         {
           once: true,
@@ -131,8 +141,9 @@
     });
 
 
-    W.commands.request('save:start');
+  W.commands.request('save:start');
   }
+
 
 
   function bootstrap() {
