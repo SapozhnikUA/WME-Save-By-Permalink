@@ -500,7 +500,7 @@
           await updateObjects(url);
             console.log(counter + '---->' + counter_save);
           if (++counter == counter_save){ // считаем автосохранения
-            await Promise.all(W.commands.request('save:start'),);
+            await Promise.all(W.commands.request('save:start'),); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           }
         }
       }
