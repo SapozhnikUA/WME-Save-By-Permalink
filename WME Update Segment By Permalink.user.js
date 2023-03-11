@@ -10,6 +10,7 @@
 
 // Флаги flags_unset либо flags_set =  unpaved,headlights
 // https://waze.com/uk/editor?env=row&lat=46.59851&lon=33.07064&s=8379753821591&zoomLevel=18&segments=427057335#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=unpaved,headlights
+// #lockRank=2 (левел +1)
 
 // Переход по кординатам
 // W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(33.07064), parseFloat(46.59851)))
