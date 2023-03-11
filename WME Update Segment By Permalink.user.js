@@ -28,7 +28,7 @@
     'https://waze.com/uk/editor?env=row&lat=46.840167937&lon=32.75391140&s=3402715231638&zoomLevel=17&segments=206075445#lockRank=2',
     'https://waze.com/uk/editor?env=row&lat=46.835668327&lon=32.75084429&s=3402715231638&zoomLevel=17&segments=206075789#lockRank=2',
     'https://waze.com/uk/editor?env=row&lat=46.256802467&lon=32.29593133&s=3402715231638&zoomLevel=17&segments=205347452#lockRank=2',
-    
+
     'https://waze.com/uk/editor?env=row&lat=46.835786137&lon=31.12684401&s=3402715231638&zoomLevel=17&segments=367243892#flags_unset=unpaved',
     'https://waze.com/uk/editor?env=row&lat=46.835737717&lon=31.12772756&s=3402715231638&zoomLevel=17&segments=398331460#flags_unset=unpaved',
     'https://waze.com/uk/editor?env=row&lat=47.009908567&lon=31.89004975&s=3402715231638&zoomLevel=17&segments=357131428#flags_unset=unpaved',
@@ -300,8 +300,10 @@
         if (url.hash) {
           await updateObjects(url);
           console.log(counter + '---->' + counter_save);
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!          
           if (++counter == counter_save) { // считаем автосохранения
             //            await Promise.all(W.commands.request('save:start'),);
+            //            counter = 0
           }
         }
       }
@@ -330,6 +332,7 @@
     });
   }
   function waitLoadingData(id) {
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Если нет ID (сегмент не читается или был удален)
     return new Promise((resolve) => {
       const segment = W.model.segments.getObjectById(id);
 
@@ -349,6 +352,7 @@
     const segments = await Promise.all(
       searchParams.getAll('segments').map((id) => waitLoadingData(id)),
     );
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     let flags = segments[0].attributes.flags//.toString(2); // как правильно получать flags ??????????????????????
     // console.log(flags.toString(2));
 
