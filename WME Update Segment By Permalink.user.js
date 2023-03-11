@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Update Segment By Permalink
 // @namespace   WazeUA
-// @version     0.0.3
+// @version     0.0.4
 // @description none
 // @author      ixxvivxxi
 // @match       https://*.waze.com/editor*
@@ -12,7 +12,7 @@
 // https://waze.com/uk/editor?env=row&lat=46.59851&lon=33.07064&s=8379753821591&zoomLevel=18&segments=427057335#fwdMaxSpeed=50&lockRank=2&revMaxSpeed=30&flags_set=unpaved,headlights
 // #lockRank=2 (левел +1)
 
-// Переход по кординатам
+// Переход по кординатам 
 // W.map.setCenter(OpenLayers.Layer.SphericalMercator.forwardMercator(parseFloat(33.07064), parseFloat(46.59851)))
 
 (function main() {
