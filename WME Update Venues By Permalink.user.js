@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Update Venues By Permalink
 // @namespace   WazeUA
-// @version     0.0.1
+// @version     0.0.2
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -73,8 +73,7 @@
       });
     }
   
-  
-  
+    
   
     function waitLoadingData(id) {
       
@@ -102,7 +101,7 @@
     async function updateObjects(url) {
   
       const searchParams = new URLSearchParams(url.search.replace('?', '')); // Получаем данные в ссылке после "?"
-      const segments = (await Promise.all(
+      const venues = (await Promise.all(
         searchParams.getAll('venues').map((id) => waitLoadingData(id)),
       )).filter(venue => venue);
       if (venues.length) {
