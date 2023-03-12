@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Update Venues By Permalink
 // @namespace   WazeUA
-// @version     0.0.2
+// @version     0.0.3
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -17,7 +17,7 @@
     'use strict';
     let UpdateObject;
     let URL_LIST = [
-      'https://waze.com/uk/editor?env=row&lat=50.43548&lon=30.43249&s=8644984831383&zoomLevel=18&venues=19923448.199431092.15056596#name=123',
+      'https://waze.com/uk/editor?env=row&lat=50.43548&lon=30.43249&s=8644984831383&zoomLevel=18&venues=19923448.199431092.15056596#name=абв',
     ];
     async function goThrowTheLinks() {
       var counter = 0;
