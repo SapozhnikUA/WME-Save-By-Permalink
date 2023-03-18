@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Update Venues By Permalink
 // @namespace   WazeUA
-// @version     0.0.6
+// @version     0.0.8
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -81,16 +81,32 @@
     let UpdateObject;
     let DeleteObj;
     let URL_LIST = [
-        'https://waze.com/uk/editor?env=row&lat=50.43583&lon=30.43239&s=4762049183223&zoomLevel=20&venues=19923448.199431092.28027439'
-        + '#name=🔌 АвтоЕнтерпрайз, електрозарядка'
-        + '&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка'
-        + '&url=https://autoenterprise.ua/'
-        + '&categories=CHARGING_STATION'
-        + '&categoryAttributes.CHARGING_STATION=AutoEnterprise'
-        + '&categoryAttributes.accessType=PUBLIC'
-        + '&phone=+380991234567'
-        + '&lockRank=3'
-        ,
+        // 'https://waze.com/uk/editor?env=row&lat=50.43583&lon=30.43239&s=4762049183223&zoomLevel=20&venues=19923448.199431092.28027439'
+        // + '#name=🔌 АвтоЕнтерпрайз, електрозарядка'
+//        + '&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка'
+//        + '&url=https://autoenterprise.ua/'
+//        + '&categories=CHARGING_STATION'
+        // + '&categoryAttributes.CHARGING_STATION=AutoEnterprise'
+//        + '&categoryAttributes.accessType=PUBLIC'
+//        + '&phone=+380991234567'
+//        + '&lockRank=3'
+        // ,
+'https://waze.com/uk/editor/?env=row&lat=50.154409999&lon=25.24371&zoomLevel=20&venues=16515574.165417879.27627701#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.947859999&lon=23.17396&zoomLevel=20&venues=15204851.151851907.28020525#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=50.39494503&lon=30.60259667&zoomLevel=20&venues=20054520.200545199.27862036#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=50.38657866&lon=30.43473581&zoomLevel=20&venues=19923448.199431087.27860927#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=50.434979999&lon=30.408939999&zoomLevel=20&venues=19923448.199300019.28002013#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.848929096&lon=24.023188877&zoomLevel=20&venues=15729138.157422457.28005208#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.853959999&lon=24.02615&zoomLevel=20&venues=15729139.157487993.28005579#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.812569999&lon=24.11391&zoomLevel=20&venues=15794674.158012277.28003844#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.815409999&lon=24.1136&zoomLevel=20&venues=15794674.158012278.28005549#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.816219999&lon=24.11467&zoomLevel=20&venues=15794674.158012278.28004981#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.810715646&lon=24.139139264&zoomLevel=20&venues=15794674.158208885.28005267#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.224919999&lon=23.34331&zoomLevel=20&venues=15270380.152965946.28023195#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.3572&lon=23.51254&zoomLevel=20&venues=15401454.154080072.28023488#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.792059999&lon=23.71418&zoomLevel=20&venues=15532530.155390835.28009918#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.22171&lon=23.80897&zoomLevel=20&venues=15598060.156046138.28023359#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+'https://waze.com/uk/editor/?env=row&lat=49.87979&lon=23.89147&zoomLevel=20&venues=15663603.156570492.28021194#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
     ]
     async function goThrowTheLinks() {
         var counter = 0;
@@ -182,14 +198,21 @@
             const updateProps = {}; // создаем объект
             //            console.log ('Объект начальный', updateProps);
             //            updateProps.categoryAttributes = venues[0].attributes.categoryAttributes; // копируем объект
+
+// Получаем данные объекта
             const CHARGING_STATION = { ...venues[0].attributes.categoryAttributes.CHARGING_STATION };
             const paymentMethods = venues[0].attributes.categoryAttributes.CHARGING_STATION.paymentMethods ?? [];
             CHARGING_STATION["paymentMethods"] = [...paymentMethods];
-            //            console.log('Атрибуты', venues[0].attributes.categoryAttributes);
+
+            // const chargingPorts = venues[0].attributes.categoryAttributes.CHARGING_STATION.chargingPorts ?? [];
+            // CHARGING_STATION["chargingPorts"] = [...chargingPorts];
+
+            // console.log ('Длинна', Object.keys(CHARGING_STATION).length);
+            // console.log ('OLD CHARGING_STATION', CHARGING_STATION);
+
             const hashParams = new URLSearchParams(url.hash.replace('#', '')); // Создаем new экземпляр объекта
             // получаем данные для загрузки
             for (const [key, value] of hashParams.entries()) {
-                //            updateProps[key] = parseInt(value);
 
                 if (key == 'DeleteObject' && value == 'true') { // Удаляем объект
                     await Promise.all(venues.map((venue) => {
@@ -197,20 +220,22 @@
                     }),);
                     console.log('Объект удален');
                     return;
-
-                } else if (value.includes(";")) {
+                }
+                if (key == 'aliases') {
                     updateProps[key] = value.split(";");
                 } else if (key == 'phone') {
-                    updateProps[key] = String(String('+' + value.substring(1)));
+                    updateProps[key] = ((value[0] == ' ')?(String('+' + value.substring(1))):value);
                     console.log('Телефон', String('+' + value.substring(1)))
                 } else if (key == 'categories') {
                     updateProps[key] = [value];
-                } else if (key == 'categoryAttributes.CHARGING_STATION') {
-                    //                    updateProps.categoryAttributes.CHARGING_STATION.network = value; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!s
+                } else if (key == 'network') {
                     CHARGING_STATION["network"] = value;
-                    //                    updateProps.categoryAttributes.CHARGING_STATION.costType = "FREE";
-                } else if (key == 'categoryAttributes.accessType') {
-                    //                    updateProps.categoryAttributes.CHARGING_STATION.accessType = value;
+                } else if (key == 'paymentMethods') {
+                    CHARGING_STATION["paymentMethods"] = value.split(";");
+                } else if (key == 'accessType') {
+                    CHARGING_STATION["accessType"] = value;
+                } else if (key == 'costType') {
+                    CHARGING_STATION["costType"] = value;
                 } else if (!isNaN(value)) {
                     updateProps[key] = parseFloat(value); // Проверка на целое число
                 } else {
