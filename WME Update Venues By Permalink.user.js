@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Update Venues By Permalink
 // @namespace   WazeUA
-// @version     0.0.5
+// @version     0.0.6
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -81,37 +81,16 @@
     let UpdateObject;
     let DeleteObj;
     let URL_LIST = [
-        // 'https://waze.com/uk/editor?env=row&lat=50.43883&lon=30.43959&s=8679126334679&zoomLevel=20&venues=19923448.199496628.27862276'
-        // + '#name=🔌 АвтоЕнтерпрайз, електрозарядка'
-        // + '&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка'
-        // + '&url=https://autoenterprise.ua/'
-        // + '&categories=CHARGING_STATION'
-        // + '&categoryAttributes.CHARGING_STATION=AutoEnterprise'
-        // + '&categoryAttributes.accessType=PUBLIC'
-        // + '&phone=+380991234567'
-        // + '&lockRank=3'
-        // ,
-        // 'https://waze.com/uk/editor/?env=row&lat=48.62503112&lon=22.27649957&zoomLevel=20&venues=14615014.146019071.27863305#DeleteObject=true',
-        // 'https://waze.com/uk/editor/?env=row&lat=48.63302511&lon=22.27993601&zoomLevel=20&venues=14615014.146019071.27861897#DeleteObject=true',
-        // 'https://waze.com/uk/editor/?env=row&lat=48.61107216&lon=22.29329637&zoomLevel=20&venues=14615014.146084605.27863494#DeleteObject=true',
-'https://waze.com/uk/editor/?env=row&lat=50.520819762&lon=30.24933461&zoomLevel=20&venues=19792377.198251452.27862904#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=48.001171742&lon=33.481805582&zoomLevel=20&venues=21955040.219419328.27863069#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=48.34629138&lon=33.498564639&zoomLevel=20&venues=21955043.219550435.27860553#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=46.43909418&lon=30.71193701&zoomLevel=20&venues=20120016.201265700.27863079#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=46.43524133&lon=30.71990598&zoomLevel=20&venues=20120016.201331236.27863626#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=46.48255864&lon=30.73557065&zoomLevel=20&venues=20120017.201462312.27862162#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=46.48109518&lon=30.74087695&zoomLevel=20&venues=20120017.201462312.27864411#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=46.48109518&lon=30.74087695&zoomLevel=20&venues=20120017.201462312.27862899#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=46.48317426&lon=30.73568876&zoomLevel=20&venues=20120017.201462312.27861326#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=46.58587096&lon=30.7750201&zoomLevel=20&venues=20185554.201724467.27862315#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=50.5021182&lon=24.76308316&zoomLevel=20&venues=16253433.162272186.27863370#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=49.80497006&lon=24.04099007&zoomLevel=20&venues=15729138.157553524.27863210#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=49.8485126&lon=24.02187995&zoomLevel=20&venues=15729138.157422457.27860688#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=49.80029038&lon=24.90718126&zoomLevel=20&venues=16318962.163255156.27862755#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-'https://waze.com/uk/editor/?env=row&lat=49.794295567&lon=24.893714398&zoomLevel=20&venues=16318962.163124083.27861236#name=🔌 АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&categoryAttributes.CHARGING_STATION=AutoEnterprise&phone=+380975357777',
-
-
-
+        'https://waze.com/uk/editor?env=row&lat=50.43583&lon=30.43239&s=4762049183223&zoomLevel=20&venues=19923448.199431092.28027439'
+        + '#name=🔌 АвтоЕнтерпрайз, електрозарядка'
+        + '&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка'
+        + '&url=https://autoenterprise.ua/'
+        + '&categories=CHARGING_STATION'
+        + '&categoryAttributes.CHARGING_STATION=AutoEnterprise'
+        + '&categoryAttributes.accessType=PUBLIC'
+        + '&phone=+380991234567'
+        + '&lockRank=3'
+        ,
     ]
     async function goThrowTheLinks() {
         var counter = 0;
@@ -202,9 +181,11 @@
         if (venues.length) {
             const updateProps = {}; // создаем объект
             //            console.log ('Объект начальный', updateProps);
-            updateProps.categoryAttributes = venues[0].attributes.categoryAttributes; // копируем объект
+            //            updateProps.categoryAttributes = venues[0].attributes.categoryAttributes; // копируем объект
+            const CHARGING_STATION = { ...venues[0].attributes.categoryAttributes.CHARGING_STATION };
+            const paymentMethods = venues[0].attributes.categoryAttributes.CHARGING_STATION.paymentMethods ?? [];
+            CHARGING_STATION["paymentMethods"] = [...paymentMethods];
             //            console.log('Атрибуты', venues[0].attributes.categoryAttributes);
-            //console.log ('Объект', updateProps);
             const hashParams = new URLSearchParams(url.hash.replace('#', '')); // Создаем new экземпляр объекта
             // получаем данные для загрузки
             for (const [key, value] of hashParams.entries()) {
@@ -225,9 +206,11 @@
                 } else if (key == 'categories') {
                     updateProps[key] = [value];
                 } else if (key == 'categoryAttributes.CHARGING_STATION') {
-                    updateProps.categoryAttributes.CHARGING_STATION.network = value;
+                    //                    updateProps.categoryAttributes.CHARGING_STATION.network = value; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!s
+                    CHARGING_STATION["network"] = value;
+                    //                    updateProps.categoryAttributes.CHARGING_STATION.costType = "FREE";
                 } else if (key == 'categoryAttributes.accessType') {
-                    updateProps.categoryAttributes.CHARGING_STATION.accessType = value;
+                    //                    updateProps.categoryAttributes.CHARGING_STATION.accessType = value;
                 } else if (!isNaN(value)) {
                     updateProps[key] = parseFloat(value); // Проверка на целое число
                 } else {
@@ -236,15 +219,17 @@
                 console.log('PL hash: ' + key + ' = ' + value);
             }
             console.log('Финальный объект', updateProps);
+            if (Object.keys(CHARGING_STATION).length) {
+                updateProps["categoryAttributes"] = {};
+                updateProps.categoryAttributes["CHARGING_STATION"] = CHARGING_STATION;
 
+            }
             await Promise.all(venues.map((venue) => {
                 W.model.actionManager.add(new UpdateObject(venue, updateProps));
             }),);
 
         }
     }
-
-
 
     function bootstrap() {
         if (W && W.loginManager && W.loginManager.user && W.map && require) {
