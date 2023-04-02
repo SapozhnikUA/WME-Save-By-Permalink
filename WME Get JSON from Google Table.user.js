@@ -6,6 +6,8 @@
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
+// @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
+// @downloadURL  https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
 // ==/UserScript==
 
 
