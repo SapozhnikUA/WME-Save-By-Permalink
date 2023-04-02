@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.3
+// @version     0.0.4
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -80,7 +80,7 @@ function sendHTTPRequest(url, callback) {
         sendHTTPRequest(url, requestCallback);
     }
 
-    const data = getAllLockRules;
+    const data = getAllLockRules();
 
     console.log(data);
 
