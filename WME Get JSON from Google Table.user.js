@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.10
+// @version     0.0.11
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -41,7 +41,7 @@
         });
     }
 
-    function validateHTTPResponse(res) {
+    async function validateHTTPResponse(res) {
         let result = false,
             displayError = true;
         if (res) {
