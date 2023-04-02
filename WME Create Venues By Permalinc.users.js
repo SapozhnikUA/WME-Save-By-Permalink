@@ -11,6 +11,7 @@
 // ==/UserScript==
 
 /* global W */
+/* global require */
 /* global OpenLayers */
 /* global NavigationPoint */
 
@@ -23,7 +24,8 @@
     'use strict';
 
     function createPoint (isResidential = false) {
-        let {lat, lon} ={ lat: 50.43335, lon: 30.43289 };
+
+        let {lat, lon} ={ lat: 50.43590, lon: 30.43231 }
 
         let WazeFeatureVectorLandmark = require('Waze/Feature/Vector/Landmark')
         let WazeActionAddLandmark = require('Waze/Action/AddLandmark')
@@ -34,49 +36,76 @@
 
         let address = {};
         let lockRank = 1;
-        let pointGeometry = new OpenLayers.Geometry.Point(lon, lat) // !!!!!!!!!!!!!!!!!!!!!!!!!!1
+        let pointGeometry = new OpenLayers.Geometry.Point(lon, lat).transform('EPSG:4326', 'EPSG:900913') // !!!!!!!!!!!!!!!!!!!!!!!!!!1
 
         NewPoint.geometry = pointGeometry
-        NewPoint.attributes.categories.push('CHARGING_STATION')
+//        NewPoint.attributes.categories.push('OTHER') // CHARGING_STATION
+        NewPoint.attributes.categories.push('CHARGING_STATION') // CHARGING_STATION
         NewPoint.attributes.lockRank = lockRank
         NewPoint.attributes.residential = isResidential
 
-       console.log (NewPoint);
+        NewPoint.attributes.phone = '+380503832131';
 
-        // Создание ТФ
-        // if (scriptSettings.get('addNavigationPoint')) {
-        //   let entryPoint, parentEntryPoint = WME.getSelectedVenue().attributes.entryExitPoints[0]
-        //   if (scriptSettings.get('inheritNavigationPoint') && parentEntryPoint !== undefined) {
-        //     entryPoint = new NavigationPoint(parentEntryPoint.getPoint())
-        //   } else {
-        //     entryPoint = new NavigationPoint(pointGeometry.clone())
-        //   }
-        //   NewPoint.attributes.entryExitPoints.push(entryPoint)
-        // }
+        // Атрибуты charger station
+         const CHARGING_STATION = {};
+         const paymentMethods = ["APP"] ?? [];
+        CHARGING_STATION["paymentMethods"] = ["APP", "MEMBERSHIP_CARD"] ?? [];
+        CHARGING_STATION["network"] = "GO-TO U";
+        CHARGING_STATION["costType"] = "FEE";
+        CHARGING_STATION["chargingPorts"] = [
+                {
+                    "count": 1,
+                    "portId": "1",
+                    "connectorTypes": [
+                        "TYPE1"
+                    ],
+                    "maxChargeSpeedKw": 22
+                },
+                {
+                    "count": 1,
+                    "portId": "2",
+                    "connectorTypes": [
+                        "TYPE1"
+                    ],
+                    "maxChargeSpeedKw": 22
+                }
+            ];
 
+
+             if (Object.keys(CHARGING_STATION).length) {
+                NewPoint.attributes["categoryAttributes"] = {};
+                NewPoint.attributes.categoryAttributes["CHARGING_STATION"] = CHARGING_STATION;
+            }
+
+
+
+
+// Клонируем ТФ
           NewPoint.attributes.entryExitPoints.push(new NavigationPoint(pointGeometry.clone()));
        // Указываем адрес
-          NewPoint.attributes.name = "вул. Михайла Донця"
-          NewPoint.attributes.houseNumber = '5'
+          NewPoint.attributes.name = "Название POI"
+          NewPoint.attributes.houseNumber = 555;
 
         let newAddressAttributes = {
-          streetName: "вул. Михайла Донця",
-          emptyStreet: false,
-          cityName: "Київ",
-          emptyCity: false,
-          stateID: null,
-//          countryID: '',
-        }
+    "streetName": "вул. Михайла Донця",
+    "emptyStreet": false,
+    "cityName": "Київ",
+    "emptyCity": false,
+    "stateID": 1,
+    "countryID": 232,
+}
 
-newAddressAttributes = {};
+        //newAddressAttributes = {};
+        console.log('NewPoint', NewPoint);
 
+// Создаем POI
         W.selectionManager.unselectAll()
         let addedLandmark = new WazeActionAddLandmark(NewPoint)
         W.model.actionManager.add(addedLandmark)
-  //      W.model.actionManager.add(new WazeActionUpdateFeatureAddress(NewPoint, newAddressAttributes))
-//        if (!!address.attributes.houseNumber) {
-//          W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { houseNumber: address.attributes.houseNumber }))
-        //}
+
+// Добавляем адрес
+        W.model.actionManager.add(new WazeActionUpdateFeatureAddress(NewPoint, newAddressAttributes))
+        W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { houseNumber: NewPoint.attributes.houseNumber }))
         W.selectionManager.setSelectedModels([addedLandmark.venue])
         console.log('The point was created.')
       }
@@ -85,10 +114,9 @@ newAddressAttributes = {};
     function bootstrap() {
         if (W && W.loginManager && W.loginManager.user && W.map && require) {
 //            UpdateObject = require('Waze/Action/UpdateObject');
-//            DeleteObj = require('Waze/Action/DeleteObject');
             createPoint();
         } else {
-            setTimeout(bootstrap, 200);
+            setTimeout(bootstrap, 5000);
         }
     }
 

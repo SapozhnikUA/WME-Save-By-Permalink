@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Update Venues By Permalink
 // @namespace   WazeUA
-// @version     0.0.8
+// @version     0.0.9
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -42,24 +42,24 @@
 //             "source": "ECO_MOVEMENT",
 //             "network": "AE",
 //             "accessType": "RESTRICTED",
-//             "chargingPorts": [
-//                 {
-//                     "count": 1,
-//                     "portId": "1",
-//                     "connectorTypes": [
-//                         "TYPE1"
-//                     ],
-//                     "maxChargeSpeedKw": 22
-//                 },
-//                 {
-//                     "count": 1,
-//                     "portId": "2",
-//                     "connectorTypes": [
-//                         "TYPE1"
-//                     ],
-//                     "maxChargeSpeedKw": 22
-//                 }
-//             ],
+            // "chargingPorts": [
+            //     {
+            //         "count": 1,
+            //         "portId": "1",
+            //         "connectorTypes": [
+            //             "TYPE1"
+            //         ],
+            //         "maxChargeSpeedKw": 22
+            //     },
+            //     {
+            //         "count": 1,
+            //         "portId": "2",
+            //         "connectorTypes": [
+            //             "TYPE1"
+            //         ],
+            //         "maxChargeSpeedKw": 22
+            //     }
+            // ],
 //             "paymentMethods": [
 //                 "MEMBERSHIP_CARD"
 //             ]
@@ -91,26 +91,25 @@
 //        + '&phone=+380991234567'
 //        + '&lockRank=3'
         // ,
-'https://waze.com/uk/editor/?env=row&lat=50.154409999&lon=25.24371&zoomLevel=20&venues=16515574.165417879.27627701#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.947859999&lon=23.17396&zoomLevel=20&venues=15204851.151851907.28020525#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=50.39494503&lon=30.60259667&zoomLevel=20&venues=20054520.200545199.27862036#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=50.38657866&lon=30.43473581&zoomLevel=20&venues=19923448.199431087.27860927#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=50.434979999&lon=30.408939999&zoomLevel=20&venues=19923448.199300019.28002013#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.848929096&lon=24.023188877&zoomLevel=20&venues=15729138.157422457.28005208#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.853959999&lon=24.02615&zoomLevel=20&venues=15729139.157487993.28005579#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.812569999&lon=24.11391&zoomLevel=20&venues=15794674.158012277.28003844#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.815409999&lon=24.1136&zoomLevel=20&venues=15794674.158012278.28005549#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.816219999&lon=24.11467&zoomLevel=20&venues=15794674.158012278.28004981#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.810715646&lon=24.139139264&zoomLevel=20&venues=15794674.158208885.28005267#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.224919999&lon=23.34331&zoomLevel=20&venues=15270380.152965946.28023195#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.3572&lon=23.51254&zoomLevel=20&venues=15401454.154080072.28023488#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.792059999&lon=23.71418&zoomLevel=20&venues=15532530.155390835.28009918#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.22171&lon=23.80897&zoomLevel=20&venues=15598060.156046138.28023359#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
-'https://waze.com/uk/editor/?env=row&lat=49.87979&lon=23.89147&zoomLevel=20&venues=15663603.156570492.28021194#name=⚡️ ГОУ ТУ-Ю, електрозарядка&aliases=ГОУ ТУ-Ю, електрозарядка;Go To-U, електрозарядка&url=https://go-tou.com/ua&network=OBL energo&phone=0-800-217007&lockRank=1&costType=FEE&paymentMethods=APP',
+
+// Delete
+        //'https://waze.com/uk/editor/?env=row&lat=50.020910128&lon=36.223428523&zoomLevel=20&venues=23724532.237376394.21693797#DeleteObject=true',
+
+//'https://waze.com/uk/editor?env=row&lat=49.21790&lon=28.45135&s=4656821959923&zoomLevel=21&venues=18678252.186454842.27862478#name=⚡️ ЕкоФактор, електрозарядка&aliases=ЕкоФактор, електрозарядка;EcoFactor, електрозарядка&url=https://efn.ecofactor.ua/about-ecofactor-app&network=EcoFactor&phone=+380 (97) 798-88-80&lockRank=1&costType=FEE&paymentMethods=APP',
+//'https://waze.com/uk/editor?env=row&lat=49.99136&lon=36.23541&s=4656821959923&zoomLevel=20&venues=23724532.237507463.27861898#name=⚡️ ЕкоФактор, електрозарядка 2&aliases=ЕкоФактор, електрозарядка 2;EcoFactor, електрозарядка 2&url=https://efn.ecofactor.ua/about-ecofactor-app&network=EcoFactor&phone=+380 (97) 798-88-80&lockRank=1&costType=FEE&paymentMethods=APP',
+//'https://waze.com/uk/editor?env=row&lat=49.99137&lon=36.23544&s=4656821959923&zoomLevel=20&venues=23724532.237507463.27861814#name=⚡️ ЕкоФактор, електрозарядка 3&aliases=ЕкоФактор, електрозарядка 3;EcoFactor, електрозарядка 3&url=https://efn.ecofactor.ua/about-ecofactor-app&network=EcoFactor&phone=+380 (97) 798-88-80&lockRank=1&costType=FEE&paymentMethods=APP',
+//'https://waze.com/uk/editor?env=row&lat=49.99137&lon=36.23544&s=4656821959923&zoomLevel=20&venues=23724532.237441927.27861699#name=⚡️ ЕкоФактор, електрозарядка 4&aliases=ЕкоФактор, електрозарядка 4;EcoFactor, електрозарядка 4&url=https://efn.ecofactor.ua/about-ecofactor-app&network=EcoFactor&phone=+380 (97) 798-88-80&lockRank=1&costType=FEE&paymentMethods=APP',
+
+'https://waze.com/uk/editor/?env=row&lat=47.904335907&lon=33.358370739&zoomLevel=20&venues=21889503.218632886.22398434#name=⚡️ АвтоЕнтерпрайз, електрозарядка&aliases=АвтоЕнтерпрайз, електрозарядка;AutoEnterprise, електрозарядка&url=https://charge.autoenterprise.com.ua/&network=AutoEnterprise&phone=+380 (97) 535-77-77&lockRank=1&costType=FEE&paymentMethods=APP',
+//'https://waze.com/uk/editor?env=row&lat=49.24057&lon=28.50594&s=4656821959923&zoomLevel=20&venues=18678252.186848060.27862562#name=⚡️ АвтоЕнтерпрайз, електрозарядка 2&aliases=АвтоЕнтерпрайз, електрозарядка 2;AutoEnterprise, електрозарядка 2&url=https://charge.autoenterprise.com.ua/&network=AutoEnterprise&phone=+380 (97) 535-77-77&lockRank=1&costType=FEE&paymentMethods=APP',
+
+
+//'https://waze.com/uk/editor?env=row&lat=50.28247&lon=31.46148&s=8266826383359&zoomLevel=19&venues=20644343.206181284.19157283#name=⚡️ Ясно, електрозарядка&aliases=Ясно, електрозарядка;Yasno, електрозарядка&url=https://yasno.com.ua/charge-stations&network=Yasno&phone=0-800-212-333&lockRank=1&costType=FEE&paymentMethods=APP',
+
     ]
     async function goThrowTheLinks() {
         var counter = 0;
-        var counter_save = 150; // значение автосохранения
+        var counter_save = 25; // значение автосохранения
         if (URL_LIST.length < counter_save) counter_save = URL_LIST.length;
 
         for (const link of URL_LIST) {
@@ -125,7 +124,7 @@
                     console.log(counter + '---->', counter_save, link);
                     if (++counter == counter_save || URL_LIST[URL_LIST.length - 1] === link) { // считаем автосохранения
 
-                        // await save();
+                        await save();
                         counter = 0;
                     }
                 }
@@ -197,9 +196,11 @@
         if (venues.length) {
             const updateProps = {}; // создаем объект
             //            console.log ('Объект начальный', updateProps);
-            //            updateProps.categoryAttributes = venues[0].attributes.categoryAttributes; // копируем объект
 
 // Получаем данные объекта
+
+            // !!!!!! Проверить, если нет объекта!!!!
+
             const CHARGING_STATION = { ...venues[0].attributes.categoryAttributes.CHARGING_STATION };
             const paymentMethods = venues[0].attributes.categoryAttributes.CHARGING_STATION.paymentMethods ?? [];
             CHARGING_STATION["paymentMethods"] = [...paymentMethods];
