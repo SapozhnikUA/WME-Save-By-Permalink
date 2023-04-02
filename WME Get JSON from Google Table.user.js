@@ -4,8 +4,8 @@
 // @version     0.0.1
 // @description none
 // @author      Sapozhnik
-// @match       https://*.waze.com/editor*
-// @match       https://*.waze.com/*/editor*
+// @match       https://www.waze.com/uk/user/editor/sapozhnik
+// @match       https://www.waze.com/uk/user/editor/sapozhnik
 // @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
 // @downloadURL  https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
 // ==/UserScript==
