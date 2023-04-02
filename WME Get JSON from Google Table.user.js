@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.9
+// @version     0.0.10
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -21,7 +21,7 @@
     const requestsTimeout = 20000; // in ms
 
 
-    function sendHTTPRequest(url, callback) {
+    async function sendHTTPRequest(url, callback) {
         GM_xmlhttpRequest({
             url: url,
             method: 'GET',
@@ -74,9 +74,9 @@
 
 
     async function getAllLockRules() {
-        async function requestCallback(res) {
+        function requestCallback(res) {
             if (validateHTTPResponse(res)) {
-                let out = await JSON.parse(res.responseText);
+                let out = JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
                     return console.log('Успех', out.venues);
                 } else {
@@ -86,14 +86,18 @@
         }
 
         const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
-        console.log("Га", sendHTTPRequest(url, requestCallback));
+        console.log("Га",  await sendHTTPRequest(url, requestCallback));
+        // await sendHTTPRequest(url, requestCallback);
+
         return;
     }
 
+
+
+
     let data;
     data = getAllLockRules();
+    console.log("Данные:", data);
 
-    console.log("данные");
-    console.log(data);
 
 })()
