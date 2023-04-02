@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.6
+// @version     0.0.9
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -17,11 +17,11 @@
 
 (function () {
     'use strict'
-    const rulesHash = "p4dEw0RCUl_9x8Pcm5pOytnkn78exjlvg8bKf0ckmSD41nybCmwUhU_oF5VFqfaC1lLw_VpFxlVYjdUje-QNDj3yNL6WTWmum5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnDNORikYzTOncDSwsB5Qu43ypHyo693UgcPSbNu1NMDCu_73ssZICzFPAspno8H8k4m_AiawERTV232bxloZqwqlfq1fcoUN_A&lib=MTLNopqrFE4CF4f71xdpTPGEPB9YMDy0k";
+    const rulesHash = "AKfycbwFQGbvmnCnnmkAOuNpB_0sqLZSmoZVXsMuJ7Geza1iVGhnUzXMb8LKG9HUE543irw";
     const requestsTimeout = 20000; // in ms
 
 
-function sendHTTPRequest(url, callback) {
+    function sendHTTPRequest(url, callback) {
         GM_xmlhttpRequest({
             url: url,
             method: 'GET',
@@ -72,21 +72,28 @@ function sendHTTPRequest(url, callback) {
         return result;
     }
 
-    function getAllLockRules() {
-        function requestCallback(res) {
+
+    async function getAllLockRules() {
+        async function requestCallback(res) {
             if (validateHTTPResponse(res)) {
-                let out = JSON.parse(res.responseText);
-                return out;
+                let out = await JSON.parse(res.responseText);
+                if (out.dataStatus == "success") {
+                    return console.log('Успех', out.venues);
+                } else {
+                    alert("LevelReset: Error getting locking rules!");
+                }
             }
-            return null;
         }
 
-        const url = 'https://script.googleusercontent.com/macros/echo?user_content_key=' + rulesHash;
-        sendHTTPRequest(url, requestCallback);
+        const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
+        console.log("Га", sendHTTPRequest(url, requestCallback));
+        return;
     }
 
-    const data = getAllLockRules();
+    let data;
+    data = getAllLockRules();
 
+    console.log("данные");
     console.log(data);
 
 })()
