@@ -39,7 +39,7 @@
         let pointGeometry = new OpenLayers.Geometry.Point(lon, lat).transform('EPSG:4326', 'EPSG:900913') // !!!!!!!!!!!!!!!!!!!!!!!!!!1
 
         NewPoint.geometry = pointGeometry
-//        NewPoint.attributes.categories.push('OTHER') // CHARGING_STATION
+//        NewPoint.attributes.categories.push('OTHER') // 
         NewPoint.attributes.categories.push('CHARGING_STATION') // CHARGING_STATION
         NewPoint.attributes.lockRank = lockRank
         NewPoint.attributes.residential = isResidential
@@ -48,7 +48,6 @@
 
         // Атрибуты charger station
          const CHARGING_STATION = {};
-         const paymentMethods = ["APP"] ?? [];
         CHARGING_STATION["paymentMethods"] = ["APP", "MEMBERSHIP_CARD"] ?? [];
         CHARGING_STATION["network"] = "GO-TO U";
         CHARGING_STATION["costType"] = "FEE";

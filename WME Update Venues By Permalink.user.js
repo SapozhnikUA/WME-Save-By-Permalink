@@ -229,6 +229,7 @@
                     console.log('Телефон', String('+' + value.substring(1)))
                 } else if (key == 'categories') {
                     updateProps[key] = [value];
+                    
                 } else if (key == 'network') {
                     CHARGING_STATION["network"] = value;
                 } else if (key == 'paymentMethods') {
