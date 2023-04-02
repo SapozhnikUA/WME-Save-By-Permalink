@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.1
+// @version     0.0.2
 // @description none
 // @author      Sapozhnik
 // @match       https://www.waze.com/uk/user/editor/sapozhnik
