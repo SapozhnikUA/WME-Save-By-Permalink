@@ -21,7 +21,7 @@
     const requestsTimeout = 5000; // in ms
 
 
-    function sendHTTPRequest(url, callback) {
+    async function sendHTTPRequest(url, callback) {
         GM_xmlhttpRequest({
             url: url,
             method: 'GET',
@@ -41,7 +41,7 @@
         });
     }
 
-    function validateHTTPResponse(res) {
+    async function validateHTTPResponse(res) {
         let result = false,
             displayError = true;
         if (res) {
@@ -73,13 +73,14 @@
     }
 
 
-    function getAllLockRules() {
-        let out;
-        function requestCallback(res) {
+    async function getAllLockRules() {
+  let getData;
+        async function requestCallback(res) {
             if (validateHTTPResponse(res)) {
-                out = JSON.parse(res.responseText);
+                let out = JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
                     console.log('Успех', out.venues);
+                    getData = out.venues
                     return out.venues;
                 } else {
                     alert("LevelReset: Error getting locking rules!");
@@ -89,7 +90,7 @@
 
         const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
         console.log("Га",  sendHTTPRequest(url, requestCallback));
-        console.log("out:",  out);
+        console.log("getData:",  getData);
 
         return;
     }
