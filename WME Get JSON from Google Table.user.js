@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.14
+// @version     0.0.15
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -28,7 +28,6 @@
             timeout: requestsTimeout,
             onload: function (res) {
                 callback(res);
-                console.log('res:', res)
             },
             onreadystatechange: function (res) {
                 // fill if needed
@@ -75,9 +74,10 @@
 
 
     function getAllLockRules() {
+        let out;
         function requestCallback(res) {
             if (validateHTTPResponse(res)) {
-                let out = JSON.parse(res.responseText);
+                out = JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
                     console.log('Успех', out.venues);
                     return out.venues;
@@ -89,6 +89,7 @@
 
         const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
         console.log("Га",  sendHTTPRequest(url, requestCallback));
+        console.log("out:",  out);
 
         return;
     }
