@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.23
+// @version     0.0.24
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -73,30 +73,28 @@
     }
 
 
-    function getAllLockRules() {
-        function requestCallback(res) {
-            if (validateHTTPResponse(res)) {
-                out = JSON.parse(res.responseText);
-                if (out.dataStatus == "success") {
-                    console.log('Успех', out.venues);
-                    return out.venues;
-                } else {
-                    alert("Get G_JSON: Error getting JSON!");
-                }
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+    function requestCallback(res) {
+        if (validateHTTPResponse(res)) {
+            out = JSON.parse(res.responseText);
+            if (out.dataStatus == "success") {
+                console.log('Успех', out.venues);
+                return out.venues;
+            } else {
+                alert("Get G_JSON: Error getting JSON!");
             }
         }
-
-        const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
-        sendHTTPRequest(url, requestCallback);
-        console.log('out',out)
-        return;
     }
 
+    const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
+    sendHTTPRequest(url, requestCallback);
+    console.log('out', out)
 
 
-    let out = {};
-    getAllLockRules();
-    console.log("Данные:", res);
+ 
+    console.log("Данные:", out.venues);
 
 
 })()
