@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.18
+// @version     0.0.20
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -33,10 +33,10 @@
                 // fill if needed
             },
             ontimeout: function (res) {
-                alert("LevelReset: Sorry, request timeout!");
+                alert("Get G_JSON: Sorry, request timeout!");
             },
             onerror: function (res) {
-                alert("LevelReset: Sorry, request error!");
+                alert("Get G_JSON: Sorry, request error!");
             }
         });
     }
@@ -56,18 +56,18 @@
                     break;
                 default:
                     displayError = false;
-                    alert("LevelReset Error: unsupported status code - " + res.status);
-                    console.log("LevelReset: " + res.responseHeaders);
-                    console.log("LevelReset: " + res.responseText);
+                    alert("Get G_JSON Error: unsupported status code - " + res.status);
+                    console.log("Get G_JSON: " + res.responseHeaders);
+                    console.log("Get G_JSON: " + res.responseText);
                     break;
             }
         } else {
             displayError = false;
-            alert("LevelReset error: Response is empty!");
+            alert("Get G_JSON error: Response is empty!");
         }
 
         if (displayError) {
-            alert("LevelReset: Error processing request. Response: " + res.responseText);
+            alert("Get G_JSON: Error processing request. Response: " + res.responseText);
         }
         return result;
     }
@@ -81,22 +81,20 @@
                     console.log('Успех', out.venues);
                     return out.venues;
                 } else {
-                    alert("LevelReset: Error getting locking rules!");
+                    alert("Get G_JSON: Error getting JSON!");
                 }
             }
         }
 
         const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
         console.log("Га", sendHTTPRequest(url, requestCallback));
-        // console.log("getData:",  getData);
-
         return;
     }
 
 
 
     let out;
-    getAllLockRules();
+    getAllLockRules().then(console.log('->',out));
     console.log("Данные:", out);
 
 
