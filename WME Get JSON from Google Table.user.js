@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.24
+// @version     0.0.25
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -89,6 +89,8 @@
     }
 
     const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
+    const out = {};
+
     sendHTTPRequest(url, requestCallback);
     console.log('out', out)
 
