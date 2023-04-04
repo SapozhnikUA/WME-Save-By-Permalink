@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.22
+// @version     0.0.23
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -73,7 +73,7 @@
     }
 
 
-    async function getAllLockRules() {
+    function getAllLockRules() {
         function requestCallback(res) {
             if (validateHTTPResponse(res)) {
                 out = JSON.parse(res.responseText);
@@ -95,8 +95,8 @@
 
 
     let out = {};
-    getAllLockRules().then(console.log('->', out));
-    console.log("Данные:", out);
+    getAllLockRules();
+    console.log("Данные:", res);
 
 
 })()
