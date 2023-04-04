@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.11
+// @version     0.0.12
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -18,10 +18,10 @@
 (function () {
     'use strict'
     const rulesHash = "AKfycbwFQGbvmnCnnmkAOuNpB_0sqLZSmoZVXsMuJ7Geza1iVGhnUzXMb8LKG9HUE543irw";
-    const requestsTimeout = 20000; // in ms
+    const requestsTimeout = 5000; // in ms
 
 
-    async function sendHTTPRequest(url, callback) {
+    function sendHTTPRequest(url, callback) {
         GM_xmlhttpRequest({
             url: url,
             method: 'GET',
@@ -41,7 +41,7 @@
         });
     }
 
-    async function validateHTTPResponse(res) {
+    function validateHTTPResponse(res) {
         let result = false,
             displayError = true;
         if (res) {
@@ -73,12 +73,13 @@
     }
 
 
-    async function getAllLockRules() {
+    function getAllLockRules() {
         function requestCallback(res) {
             if (validateHTTPResponse(res)) {
                 let out = JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
-                    return console.log('Успех', out.venues);
+                    console.log('Успех', out.venues);
+                    return out;
                 } else {
                     alert("LevelReset: Error getting locking rules!");
                 }
@@ -86,8 +87,7 @@
         }
 
         const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
-        console.log("Га",  await sendHTTPRequest(url, requestCallback));
-        // await sendHTTPRequest(url, requestCallback);
+        console.log("Га",  sendHTTPRequest(url, requestCallback));
 
         return;
     }
