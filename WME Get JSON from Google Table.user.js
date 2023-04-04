@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.13
+// @version     0.0.14
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -28,6 +28,7 @@
             timeout: requestsTimeout,
             onload: function (res) {
                 callback(res);
+                console.log('res:', res)
             },
             onreadystatechange: function (res) {
                 // fill if needed
@@ -79,7 +80,7 @@
                 let out = JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
                     console.log('Успех', out.venues);
-                    return 1;
+                    return out.venues;
                 } else {
                     alert("LevelReset: Error getting locking rules!");
                 }
