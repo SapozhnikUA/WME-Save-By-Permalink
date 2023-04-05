@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.47
+// @version     0.0.48
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping.txt
@@ -14,7 +14,8 @@
 // ==/UserScript==
 
 
-
+(function () {
+    'use strict'
     const rulesHash = "AKfycbwFQGbvmnCnnmkAOuNpB_0sqLZSmoZVXsMuJ7Geza1iVGhnUzXMb8LKG9HUE543irw";
     const requestsTimeout = 5000; // in ms
 
@@ -97,3 +98,5 @@
         out = await getJsonData();
         console.log("Данные:", out);
     })();
+
+})()
