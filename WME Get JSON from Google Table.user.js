@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.45
+// @version     0.0.46
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping.txt
@@ -93,7 +93,7 @@
         return out.venues;
     }
 
-    let out;
+    let out = {};
     (async () => {
         out = await getJsonData();
         console.log("Данные:", out);
