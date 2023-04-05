@@ -1,11 +1,10 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.29
+// @version     0.0.30
 // @description none
 // @author      Sapozhnik
-// @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
-// @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
+// @match       https://dontsa2a.kiev.ua/home/ping.txt
 // @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
 // @downloadURL  https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
 // @connect      google.com
@@ -27,7 +26,7 @@
             method: 'GET',
             timeout: requestsTimeout,
             onload: function (res) {
-                console.log("res!",res)
+                console.log("res!:",res);
                 callback(res);
             },
             onreadystatechange: function (res) {
