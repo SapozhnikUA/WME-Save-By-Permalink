@@ -20,23 +20,26 @@
     const requestsTimeout = 5000; // in ms
 
 
-    function sendHTTPRequest(url, callback) {
-        GM_xmlhttpRequest({
-            url: url,
-            method: 'GET',
-            timeout: requestsTimeout,
-            onload: function (res) {
-                callback(res);
-            },
-            onreadystatechange: function (res) {
-                // fill if needed
-            },
-            ontimeout: function (res) {
-                alert("Get G_JSON: Sorry, request timeout!");
-            },
-            onerror: function (res) {
-                alert("Get G_JSON: Sorry, request error!");
-            }
+    async function sendHTTPRequest(url, callback) {
+        return new Promise((resolve) => {
+            GM_xmlhttpRequest({
+                url: url,
+                method: 'GET',
+                timeout: requestsTimeout,
+                onload: function (res) {
+                    callback(res);
+                    resolve();
+                },
+                onreadystatechange: function (res) {
+                    // fill if needed
+                },
+                ontimeout: function (res) {
+                    alert("Get G_JSON: Sorry, request timeout!");
+                },
+                onerror: function (res) {
+                    alert("Get G_JSON: Sorry, request error!");
+                }
+            });
         });
     }
 
@@ -73,27 +76,21 @@
 
 
     function getAllLockRules() {
-        async function requestCallback(res) {
-
-            return new Promise((resolve) => {
-                if (validateHTTPResponse(res)) {
-                    out = JSON.parse(res.responseText);
-                    if (out.dataStatus == "success") {
-                        console.log('Успех', out.venues);
-                        return resolve();
-                    } else {
-                        alert("Get G_JSON: Error getting JSON!");
-                    }
+        function requestCallback(res) {
+            if (validateHTTPResponse(res)) {
+                out = JSON.parse(res.responseText);
+                if (out.dataStatus == "success") {
+                    console.log('Успех', out.venues);
+                    return out.venues;
+                } else {
+                    alert("Get G_JSON: Error getting JSON!");
                 }
-            });
+            }
         }
 
         const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
-
         sendHTTPRequest(url, requestCallback);
-
         console.log('out', out)
-
         return;
     }
 
