@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.28
+// @version     0.0.29
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping_data_1.txt
@@ -27,6 +27,7 @@
             method: 'GET',
             timeout: requestsTimeout,
             onload: function (res) {
+                console.log("res!",res)
                 callback(res);
             },
             onreadystatechange: function (res) {
