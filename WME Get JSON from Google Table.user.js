@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.37
+// @version     0.0.38
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping.txt
@@ -81,7 +81,6 @@
                 out = JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
                     console.log('Успех', out.venues);
-                    return out.venues;
                 } else {
                     alert("Get G_JSON: Error getting JSON!");
                 }
@@ -89,8 +88,8 @@
         }
 
         const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
-        await sendHTTPRequest(url, requestCallback);
-        console.log('out', out)
+        return await sendHTTPRequest(url, requestCallback);
+        console.log('out', out.venues)
         return;
     }
 
