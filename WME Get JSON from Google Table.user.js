@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.41
+// @version     0.0.42
 // @description none
 // @author      Sapozhnik
 // @match       https://dontsa2a.kiev.ua/home/ping.txt
@@ -93,10 +93,10 @@
         return out.venues;
     }
 
-
+    let out;
     (async () => {
-    let out = await getAllLockRules();
-    console.log("Данные:", out);
-})();
+        out = await getAllLockRules();
+        console.log("Данные:", out);
+    })();
 
 })()
