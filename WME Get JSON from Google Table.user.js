@@ -89,7 +89,7 @@
 
         const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
         await sendHTTPRequest(url, requestCallback);
-//        console.log('out', out.venues)
+        //        console.log('out', out.venues)
         return out.venues;
     }
 
