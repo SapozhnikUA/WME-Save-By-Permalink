@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.1.6
+// @version     0.1.7
 // @description none
 // @author      Sapozhnik
 // @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
@@ -14,7 +14,7 @@
 
 class GetJSON {
     // const rulesHash = "AKfycbwFQGbvmnCnnmkAOuNpB_0sqLZSmoZVXsMuJ7Geza1iVGhnUzXMb8LKG9HUE543irw"; // EV
-    rulesHash = "AKfycbyqCEYHT1-jhQw8MZg1HCtKshro3bVJz7eGnG9rBl2BAZ1LmOxRKj-jOJ6EXJAZSPpMaw"; // POI
+    //rulesHash = "AKfycbyqCEYHT1-jhQw8MZg1HCtKshro3bVJz7eGnG9rBl2BAZ1LmOxRKj-jOJ6EXJAZSPpMaw"; // POI
     requestsTimeout = 5000; // in ms
 
 
@@ -73,7 +73,7 @@ class GetJSON {
     }
 
 
-    async getJsonData() {
+    async getJsonData(hash) {
         const requestCallback = (res) => {
             if (this.validateHTTPResponse(res)) {
                 const out = JSON.parse(res.responseText);
@@ -87,7 +87,7 @@ class GetJSON {
             return null;
         }
 
-        const url = 'https://script.google.com/macros/s/' + this.rulesHash + '/exec?func=doGet';
+        const url = 'https://script.google.com/macros/s/' + hash + '/exec?func=doGet';
         const res = await this.sendHTTPRequest(url);
         return requestCallback(res);
         //        console.log('out', out.venues)
