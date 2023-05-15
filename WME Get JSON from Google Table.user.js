@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.0.49
+// @version     0.1.0
 // @description none
 // @author      Sapozhnik
-// @match       https://dontsa2a.kiev.ua/home/ping.txt
 // @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
 // @downloadURL  https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
 // @connect      google.com
@@ -13,20 +12,18 @@
 // @grant        GM_addStyle
 // ==/UserScript==
 
-
-(function () {
-    'use strict'
+class GetJSON {
     // const rulesHash = "AKfycbwFQGbvmnCnnmkAOuNpB_0sqLZSmoZVXsMuJ7Geza1iVGhnUzXMb8LKG9HUE543irw"; // EV
-    const rulesHash = "AKfycbyqCEYHT1-jhQw8MZg1HCtKshro3bVJz7eGnG9rBl2BAZ1LmOxRKj-jOJ6EXJAZSPpMaw"; // POI
-    const requestsTimeout = 5000; // in ms
+    rulesHash = "AKfycbyqCEYHT1-jhQw8MZg1HCtKshro3bVJz7eGnG9rBl2BAZ1LmOxRKj-jOJ6EXJAZSPpMaw"; // POI
+    requestsTimeout = 5000; // in ms
 
 
-    async function sendHTTPRequest(url, callback) {
+    sendHTTPRequest(url, callback) {
         return new Promise((resolve) => {
             GM_xmlhttpRequest({
                 url: url,
                 method: 'GET',
-                timeout: requestsTimeout,
+                timeout: this.requestsTimeout,
                 onload: function (res) {
                     callback(res);
                     resolve();
@@ -44,7 +41,7 @@
         });
     }
 
-    function validateHTTPResponse(res) {
+    validateHTTPResponse(res) {
         let result = false,
             displayError = true;
         if (res) {
@@ -54,7 +51,7 @@
                     if (res.responseHeaders.match(/content-type: application\/json/i)) {
                         result = true;
                     } else if (res.responseHeaders.match(/content-type: text\/html/i)) {
-                        displayHtmlPage(res);
+                        console.log(res);
                     }
                     break;
                 default:
@@ -76,9 +73,9 @@
     }
 
 
-    async function getJsonData() {
+    async getJsonData() {
         function requestCallback(res) {
-            if (validateHTTPResponse(res)) {
+            if (this.validateHTTPResponse(res)) {
                 out = JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
                     console.log('Данные получены', out);
@@ -88,16 +85,17 @@
             }
         }
 
-        const url = 'https://script.google.com/macros/s/' + rulesHash + '/exec?func=doGet';
-        await sendHTTPRequest(url, requestCallback);
+        const url = 'https://script.google.com/macros/s/' + this.rulesHash + '/exec?func=doGet';
+        await this.sendHTTPRequest(url, requestCallback);
         //        console.log('out', out.venues)
         return out.venues;
     }
 
-    let out = {};
-    (async () => {
-        out = await getJsonData();
-        console.log("Данные:", out);
-    })();
+    // let out = {};
+    // (async () => {
+    //     out = await getJsonData();
+    //     console.log("Данные:", out);
+    // })();
 
-})()
+
+}
