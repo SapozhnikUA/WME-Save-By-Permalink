@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.14
+// @version     0.0.15
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -56,9 +56,8 @@
         NewPoint.attributes.phone = venue.phone;
         NewPoint.attributes.description = venue.description;
 
-        if (venue.aliases){
-            // let aliasesArr = [];
-            // NewPoint.attributes.aliases = venue.aliases.split(";");
+        if (venue.aliases.length){
+            NewPoint.attributes.aliases = venue.aliases;
             console.log('venue.aliases',venue.aliases);
             
         }
