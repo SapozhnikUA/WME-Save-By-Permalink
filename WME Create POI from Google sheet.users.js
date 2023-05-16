@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.15
+// @version     0.0.16
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -21,7 +21,6 @@
 /* global OpenLayers */
 /* global NavigationPoint */
 
-//https://www.waze.com/uk/editor?env=row&lat=50.43335&lon=30.43289&s=8644984831447&zoomLevel=18&venues=19923448.199431091.27863278
 /**
  * @link https://github.com/openlayers/openlayers
  */
