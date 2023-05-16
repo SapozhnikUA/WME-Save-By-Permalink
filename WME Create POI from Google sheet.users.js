@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.13
+// @version     0.0.14
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -57,11 +57,14 @@
         NewPoint.attributes.description = venue.description;
 
         if (venue.aliases){
-            NewPoint.attributes.aliases = venue.split(";");
+            // let aliasesArr = [];
+            // NewPoint.attributes.aliases = venue.aliases.split(";");
+            console.log('venue.aliases',venue.aliases);
+            
         }
-        if (venue.services){
-            NewPoint.attributes.services = venue.split(";");
-        }
+        // if (venue.services){
+        //     NewPoint.attributes.services = venue.split.(";");
+        // }
 
 
         // Клонируем ТФ
