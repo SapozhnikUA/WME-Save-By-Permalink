@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.23
+// @version     0.0.24
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -55,7 +55,7 @@
         NewPoint.attributes.description = venue.description;
         NewPoint.attributes.aliases = venue.aliases;
         NewPoint.attributes.services = venue.services;
-        //NewPoint.attributes.openingHours = venue.openingHours;
+        NewPoint.attributes.openingHours = venue.openingHours;
         
     
 
@@ -75,7 +75,7 @@
         }
 
         //newAddressAttributes = {};
-        console.log('NewPoint', NewPoint.atributes);
+        console.log('NewPoint', NewPoint.attributes);
 
         // Создаем POI
         W.selectionManager.unselectAll()
