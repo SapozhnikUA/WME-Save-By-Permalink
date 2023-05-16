@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.30
+// @version     0.0.31
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -84,6 +84,11 @@
         W.model.actionManager.add(new WazeActionUpdateFeatureAddress(NewPoint, newAddressAttributes))
         W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { houseNumber: NewPoint.attributes.houseNumber }))
         W.selectionManager.setSelectedModels([addedLandmark.venue])
+
+        document.querySelector('.opening-hours-add').click()
+        document.querySelector('input[name="toTime"]').value = "15:00"
+        document.querySelector('.add-opening-hour .waze-btn-blue').click()
+
         console.log('The point was created.')
     }
 
