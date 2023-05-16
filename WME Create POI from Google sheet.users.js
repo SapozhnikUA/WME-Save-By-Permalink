@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.12
+// @version     0.0.13
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -54,37 +54,15 @@
         NewPoint.attributes.residential = isResidential
         NewPoint.attributes.url = venue.url;
         NewPoint.attributes.phone = venue.phone;
+        NewPoint.attributes.description = venue.description;
 
-        // Атрибуты charger station
-        // const CHARGING_STATION = {};
-        // const paymentMethods = ["APP"] ?? [];
-        // CHARGING_STATION["paymentMethods"] = ["APP", "MEMBERSHIP_CARD"] ?? [];
-        // CHARGING_STATION["network"] = "GO-TO U";
-        // CHARGING_STATION["costType"] = "FEE";
-        // CHARGING_STATION["chargingPorts"] = [
-        //     {
-        //         "count": 1,
-        //         "portId": "1",
-        //         "connectorTypes": [
-        //             "TYPE1"
-        //         ],
-        //         "maxChargeSpeedKw": 22
-        //     },
-        //     {
-        //         "count": 1,
-        //         "portId": "2",
-        //         "connectorTypes": [
-        //             "TYPE1"
-        //         ],
-        //         "maxChargeSpeedKw": 22
-        //     }
-        // ];
+        if (venue.aliases){
+            NewPoint.attributes.aliases = venue.split(";");
+        }
+        if (venue.services){
+            NewPoint.attributes.services = venue.split(";");
+        }
 
-
-        // if (Object.keys(CHARGING_STATION).length) {
-        //     NewPoint.attributes["categoryAttributes"] = {};
-        //     NewPoint.attributes.categoryAttributes["CHARGING_STATION"] = CHARGING_STATION;
-        // }
 
         // Клонируем ТФ
         NewPoint.attributes.entryExitPoints.push(new NavigationPoint(pointGeometry.clone()));
