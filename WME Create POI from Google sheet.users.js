@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.6
+// @version     0.0.7
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -31,7 +31,7 @@
     const HASH = "AKfycbyqCEYHT1-jhQw8MZg1HCtKshro3bVJz7eGnG9rBl2BAZ1LmOxRKj-jOJ6EXJAZSPpMaw";
 
     function createPoint(data, isResidential = false) {
-        venue = data.venues[0];
+        venue = new data.venues[0];
         console.log('Data->', venue.lat);
 
         let { lat, lon } = { lat: 50.43590, lon: 30.43231 }
