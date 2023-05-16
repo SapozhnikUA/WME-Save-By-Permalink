@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.18
+// @version     0.0.19
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -55,12 +55,15 @@
         NewPoint.attributes.description = venue.description;
         NewPoint.attributes.aliases = venue.aliases;
         NewPoint.attributes.services = venue.services;
+    
 
         // Клонируем ТФ
         NewPoint.attributes.entryExitPoints.push(new NavigationPoint(pointGeometry.clone()));
         // Указываем адрес
         NewPoint.attributes.name = venue.name;
         NewPoint.attributes.houseNumber = venue.houseNumber;
+
+        console.log('Новая точка',NewPoint.attributes)
 
         let newAddressAttributes = {
             "streetName": venue.streetName,
