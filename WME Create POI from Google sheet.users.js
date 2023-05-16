@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.17
+// @version     0.0.18
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
