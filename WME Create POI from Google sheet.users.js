@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.27
+// @version     0.0.28
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -46,10 +46,10 @@
         let lockRank = 1;
         let pointGeometry = new OpenLayers.Geometry.Point(lon, lat).transform('EPSG:4326', 'EPSG:900913') // !!!!!!!!!!!!!!!!!!!!!!!!!!1
 
-        NewPoint.geometry = pointGeometry
-        NewPoint.attributes.categories.push(venue.categories) // 
-        NewPoint.attributes.lockRank = venue.lockRank
-        NewPoint.attributes.residential = isResidential
+        NewPoint.geometry = pointGeometry;
+        NewPoint.attributes.categories.push(venue.categories); // 
+        NewPoint.attributes.lockRank = venue.lockRank;
+        NewPoint.attributes.residential = isResidential;
         NewPoint.attributes.url = venue.url;
         NewPoint.attributes.phone = venue.phone;
         NewPoint.attributes.description = venue.description;
