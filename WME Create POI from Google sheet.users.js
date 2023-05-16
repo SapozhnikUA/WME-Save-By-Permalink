@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.10
+// @version     0.0.11
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -49,53 +49,53 @@
 
         NewPoint.geometry = pointGeometry
         //        NewPoint.attributes.categories.push('OTHER') // CHARGING_STATION
-        NewPoint.attributes.categories.push('CHARGING_STATION') // CHARGING_STATION
-        NewPoint.attributes.lockRank = lockRank
+        NewPoint.attributes.categories.push(venue.categories) // 
+        NewPoint.attributes.lockRank = venue.lockRank
         NewPoint.attributes.residential = isResidential
 
-        NewPoint.attributes.phone = '+380503832131';
+        NewPoint.attributes.phone = venue.phone;
 
         // Атрибуты charger station
-        const CHARGING_STATION = {};
-        const paymentMethods = ["APP"] ?? [];
-        CHARGING_STATION["paymentMethods"] = ["APP", "MEMBERSHIP_CARD"] ?? [];
-        CHARGING_STATION["network"] = "GO-TO U";
-        CHARGING_STATION["costType"] = "FEE";
-        CHARGING_STATION["chargingPorts"] = [
-            {
-                "count": 1,
-                "portId": "1",
-                "connectorTypes": [
-                    "TYPE1"
-                ],
-                "maxChargeSpeedKw": 22
-            },
-            {
-                "count": 1,
-                "portId": "2",
-                "connectorTypes": [
-                    "TYPE1"
-                ],
-                "maxChargeSpeedKw": 22
-            }
-        ];
+        // const CHARGING_STATION = {};
+        // const paymentMethods = ["APP"] ?? [];
+        // CHARGING_STATION["paymentMethods"] = ["APP", "MEMBERSHIP_CARD"] ?? [];
+        // CHARGING_STATION["network"] = "GO-TO U";
+        // CHARGING_STATION["costType"] = "FEE";
+        // CHARGING_STATION["chargingPorts"] = [
+        //     {
+        //         "count": 1,
+        //         "portId": "1",
+        //         "connectorTypes": [
+        //             "TYPE1"
+        //         ],
+        //         "maxChargeSpeedKw": 22
+        //     },
+        //     {
+        //         "count": 1,
+        //         "portId": "2",
+        //         "connectorTypes": [
+        //             "TYPE1"
+        //         ],
+        //         "maxChargeSpeedKw": 22
+        //     }
+        // ];
 
 
-        if (Object.keys(CHARGING_STATION).length) {
-            NewPoint.attributes["categoryAttributes"] = {};
-            NewPoint.attributes.categoryAttributes["CHARGING_STATION"] = CHARGING_STATION;
-        }
+        // if (Object.keys(CHARGING_STATION).length) {
+        //     NewPoint.attributes["categoryAttributes"] = {};
+        //     NewPoint.attributes.categoryAttributes["CHARGING_STATION"] = CHARGING_STATION;
+        // }
 
         // Клонируем ТФ
         NewPoint.attributes.entryExitPoints.push(new NavigationPoint(pointGeometry.clone()));
         // Указываем адрес
-        NewPoint.attributes.name = "Название POI"
-        NewPoint.attributes.houseNumber = 555;
+        NewPoint.attributes.name = venue.name;
+        NewPoint.attributes.houseNumber = venue.houseNumber;
 
         let newAddressAttributes = {
-            "streetName": "вул. Михайла Донця",
+            "streetName": venue.streetName,
             "emptyStreet": false,
-            "cityName": "Київ",
+            "cityName": venue.cityName,
             "emptyCity": false,
             "stateID": 1,
             "countryID": 232,
