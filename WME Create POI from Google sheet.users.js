@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.26
+// @version     0.0.27
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -55,7 +55,7 @@
         NewPoint.attributes.description = venue.description;
         NewPoint.attributes.aliases = venue.aliases;
         NewPoint.attributes.services = venue.services;
-        NewPoint.attributes.openingHours = push(venue.openingHours);
+        NewPoint.attributes.openingHours.push(venue.openingHours);
     
 
         // Клонируем ТФ
