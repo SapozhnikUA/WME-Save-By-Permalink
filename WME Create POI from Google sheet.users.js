@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.36
+// @version     0.0.37
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -87,7 +87,7 @@
         W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { houseNumber: NewPoint.attributes.houseNumber }))
         W.selectionManager.setSelectedModels([addedLandmark.venue])
 
-        W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { openingHours: venue.openingHours.map(item => new OpeningHour(item)) }))
+        // W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { openingHours: venue.openingHours.map(item => new OpeningHour(item)) }))
 
 
         // document.querySelector('.opening-hours-add').click()
