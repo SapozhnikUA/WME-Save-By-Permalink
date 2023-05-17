@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.35
+// @version     0.0.36
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -39,6 +39,7 @@
         let WazeActionAddLandmark = require('Waze/Action/AddLandmark')
         let WazeActionUpdateObject = require('Waze/Action/UpdateObject')
         let WazeActionUpdateFeatureAddress = require('Waze/Action/UpdateFeatureAddress')
+        const OpeningHour = require('Waze/Model/Objects/OpeningHour');
 
         let NewPoint = new WazeFeatureVectorLandmark()
 
@@ -56,6 +57,7 @@
         NewPoint.attributes.aliases = venue.aliases;
         NewPoint.attributes.services = venue.services;
         // NewPoint.attributes.openingHours = venue.openingHours;
+        NewPoint.attributes.openingHours = venue.openingHours.map(item => new OpeningHour(item))
 
 
         // Клонируем ТФ
@@ -85,7 +87,6 @@
         W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { houseNumber: NewPoint.attributes.houseNumber }))
         W.selectionManager.setSelectedModels([addedLandmark.venue])
 
-        const OpeningHour = require('Waze/Model/Objects/OpeningHour');
         W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { openingHours: venue.openingHours.map(item => new OpeningHour(item)) }))
 
 
