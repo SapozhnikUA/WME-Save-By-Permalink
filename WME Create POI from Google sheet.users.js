@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.34
+// @version     0.0.35
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -86,7 +86,7 @@
         W.selectionManager.setSelectedModels([addedLandmark.venue])
 
         const OpeningHour = require('Waze/Model/Objects/OpeningHour');
-        W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { openingHours: [new OpeningHour(venue.openingHours)] }))
+        W.model.actionManager.add(new WazeActionUpdateObject(NewPoint, { openingHours: venue.openingHours.map(item => new OpeningHour(item)) }))
 
 
         // document.querySelector('.opening-hours-add').click()
