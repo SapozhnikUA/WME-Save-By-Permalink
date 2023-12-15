@@ -1,25 +1,32 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.0.37
+// @version     0.1.00
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
-// @require      https://greasyfork.org/scripts/452563-wme/code/WME.js
+// @require      https://update.greasyfork.org/scripts/389765/1090053/CommonUtils.js
+// @require      https://update.greasyfork.org/scripts/452563/1218878/WME.js
 // @require      https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
-// @require      https://greasyfork.org/scripts/38421-wme-utils-navigationpoint/code/WME%20Utils%20-%20NavigationPoint.js
+// @require      https://update.greasyfork.org/scripts/450160/1218867/WME-Bootstrap.js
+// @require      https://update.greasyfork.org/scripts/450221/1137043/WME-Base.js
+// @require      https://update.greasyfork.org/scripts/450320/1281847/WME-UI.js
+// @require      https://update.greasyfork.org/scripts/480123/1281900/WME-EntryPoint.js
 // @connect      google.com
 // @connect      script.googleusercontent.com
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
 // ==/UserScript==
 
+/* jshint esversion: 8 */
 /* global GetJSON */
-/* global W */
+/* global W, W.model */
+/* global WME, WMEBase, WMEUI, WMEUIHelper */
 /* global require */
 /* global OpenLayers */
 /* global NavigationPoint */
+/* global Container, Settings, SimpleCache, Tools  */
 
 /**
  * @link https://github.com/openlayers/openlayers
@@ -41,14 +48,17 @@
         let WazeActionUpdateFeatureAddress = require('Waze/Action/UpdateFeatureAddress')
         const OpeningHour = require('Waze/Model/Objects/OpeningHour');
 
-        let NewPoint = new WazeFeatureVectorLandmark()
+//        let NewPoint = new WazeFeatureVectorLandmark()
 
         let address = {};
         let lockRank = 1;
         let pointGeometry = new OpenLayers.Geometry.Point(lon, lat).transform('EPSG:4326', 'EPSG:900913') // !!!!!!!!!!!!!!!!!!!!!!!!!!1
+            let NewPoint = new WazeFeatureVectorLandmark({
+      geoJSONGeometry: W.userscripts.toGeoJSONGeometry(pointGeometry)
+    })
 
         NewPoint.geometry = pointGeometry;
-        NewPoint.attributes.categories.push(venue.categories); // 
+        NewPoint.attributes.categories.push(venue.categories); //
         NewPoint.attributes.lockRank = venue.lockRank;
         NewPoint.attributes.residential = isResidential;
         NewPoint.attributes.url = venue.url;
@@ -61,7 +71,9 @@
 
 
         // Клонируем ТФ
-        NewPoint.attributes.entryExitPoints.push(new NavigationPoint(pointGeometry.clone()));
+          NewPoint.attributes.entryExitPoints.push(new entryPoint({point: W.userscripts.toGeoJSONGeometry(pointGeometry.clone())}));
+
+
         // Указываем адрес
         NewPoint.attributes.name = venue.name;
         NewPoint.attributes.houseNumber = venue.houseNumber;
