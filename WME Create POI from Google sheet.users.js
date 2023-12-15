@@ -1,17 +1,12 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.1.00
+// @version     0.1.01
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
-// @require      https://update.greasyfork.org/scripts/389765/1090053/CommonUtils.js
-// @require      https://update.greasyfork.org/scripts/452563/1218878/WME.js
 // @require      https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
-// @require      https://update.greasyfork.org/scripts/450160/1218867/WME-Bootstrap.js
-// @require      https://update.greasyfork.org/scripts/450221/1137043/WME-Base.js
-// @require      https://update.greasyfork.org/scripts/450320/1281847/WME-UI.js
 // @require      https://update.greasyfork.org/scripts/480123/1281900/WME-EntryPoint.js
 // @connect      google.com
 // @connect      script.googleusercontent.com
@@ -19,7 +14,6 @@
 // @grant        GM_addStyle
 // ==/UserScript==
 
-/* jshint esversion: 8 */
 /* global GetJSON */
 /* global W, W.model */
 /* global WME, WMEBase, WMEUI, WMEUIHelper */
@@ -28,9 +22,7 @@
 /* global NavigationPoint */
 /* global Container, Settings, SimpleCache, Tools  */
 
-/**
- * @link https://github.com/openlayers/openlayers
- */
+
 
 (function main() {
     'use strict';
@@ -48,8 +40,6 @@
         let WazeActionUpdateFeatureAddress = require('Waze/Action/UpdateFeatureAddress')
         const OpeningHour = require('Waze/Model/Objects/OpeningHour');
 
-//        let NewPoint = new WazeFeatureVectorLandmark()
-
         let address = {};
         let lockRank = 1;
         let pointGeometry = new OpenLayers.Geometry.Point(lon, lat).transform('EPSG:4326', 'EPSG:900913') // !!!!!!!!!!!!!!!!!!!!!!!!!!1
@@ -66,12 +56,11 @@
         NewPoint.attributes.description = venue.description;
         NewPoint.attributes.aliases = venue.aliases;
         NewPoint.attributes.services = venue.services;
-        // NewPoint.attributes.openingHours = venue.openingHours;
         NewPoint.attributes.openingHours = venue.openingHours.map(item => new OpeningHour(item))
 
 
         // Клонируем ТФ
-          NewPoint.attributes.entryExitPoints.push(new entryPoint({point: W.userscripts.toGeoJSONGeometry(pointGeometry.clone())}));
+          NewPoint.attributes.entryExitPoints.push(new entryPoint({primary: true, point: W.userscripts.toGeoJSONGeometry(pointGeometry.clone())}));
 
 
         // Указываем адрес
