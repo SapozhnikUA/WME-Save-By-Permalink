@@ -1,21 +1,24 @@
 // ==UserScript==
-// @name        WME Create EV Venues By Permalinc
+// @name        WME Create EV from Google sheet
 // @namespace   WazeUA
 // @version     0.0.3
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
-// @require      https://greasyfork.org/scripts/452563-wme/code/WME.js
-// @require      https://greasyfork.org/scripts/38421-wme-utils-navigationpoint/code/WME%20Utils%20-%20NavigationPoint.js
+// @require      https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
+// @require      https://update.greasyfork.org/scripts/480123/1281900/WME-EntryPoint.js
 // ==/UserScript==
 
-/* global W */
+/* global GetJSON */
+/* global W, W.model */
+/* global WME, WMEBase, WMEUI, WMEUIHelper */
 /* global require */
 /* global OpenLayers */
 /* global NavigationPoint */
+/* global Container, Settings, SimpleCache, Tools  */
 
-//https://www.waze.com/uk/editor?env=row&lat=50.43335&lon=30.43289&s=8644984831447&zoomLevel=18&venues=19923448.199431091.27863278
+
 /**
  * @link https://github.com/openlayers/openlayers
  */
