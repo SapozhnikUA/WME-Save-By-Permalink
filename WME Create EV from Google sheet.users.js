@@ -25,6 +25,7 @@
 
 (function main() {
     'use strict';
+    const HASH = "AKfycbwFQGbvmnCnnmkAOuNpB_0sqLZSmoZVXsMuJ7Geza1iVGhnUzXMb8LKG9HUE543irw";
 
     function createPoint(venue, isResidential = false) {
         console.log('Data->', venue);
