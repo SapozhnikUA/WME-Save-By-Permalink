@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create EV from Google sheet
 // @namespace   WazeUA
-// @version     0.0.6
+// @version     0.0.7
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -82,7 +82,8 @@
         // Атрибуты charger station
         const CHARGING_STATION = {};
         const paymentMethods = ["APP"] ?? [];
-        CHARGING_STATION["paymentMethods"] = ["APP", "MEMBERSHIP_CARD"] ?? [];
+        // CHARGING_STATION["paymentMethods"] = ["APP", "MEMBERSHIP_CARD"] ?? [];
+        CHARGING_STATION["paymentMethods"] = venue.categoryAttributes.CHARGING_STATION.paymentMethods ?? []; 
         CHARGING_STATION["network"] = "GO-TO U";
         CHARGING_STATION["costType"] = "FEE";
         CHARGING_STATION["chargingPorts"] = [
