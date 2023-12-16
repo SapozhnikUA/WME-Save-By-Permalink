@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create EV from Google sheet
 // @namespace   WazeUA
-// @version     0.0.8
+// @version     0.0.9
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -95,7 +95,7 @@
                 "maxChargeSpeedKw": 22
             },
             {
-                "count": 1,
+                "count": 3,
                 "portId": "2",
                 "connectorTypes": [
                     "TYPE1"
