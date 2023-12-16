@@ -82,10 +82,9 @@
         // Атрибуты charger station
         const CHARGING_STATION = {};
         const paymentMethods = ["APP"] ?? [];
-        // CHARGING_STATION["paymentMethods"] = ["APP", "MEMBERSHIP_CARD"] ?? [];
         CHARGING_STATION["paymentMethods"] = venue.categoryAttributes.CHARGING_STATION.paymentMethods ?? []; 
-        CHARGING_STATION["network"] = "GO-TO U";
-        CHARGING_STATION["costType"] = "FEE";
+        CHARGING_STATION["network"] = venue.categoryAttributes.CHARGING_STATION.network ?? "";
+        CHARGING_STATION["costType"] = venue.categoryAttributes.CHARGING_STATION.costType ?? "FEE";
         CHARGING_STATION["chargingPorts"] = [
             {
                 "count": 1,
