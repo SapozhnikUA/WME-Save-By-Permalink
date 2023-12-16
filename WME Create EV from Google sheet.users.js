@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create EV from Google sheet
 // @namespace   WazeUA
-// @version     0.0.3
+// @version     0.0.4
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
