@@ -1,13 +1,17 @@
 // ==UserScript==
 // @name        WME Create EV from Google sheet
 // @namespace   WazeUA
-// @version     0.0.4
+// @version     0.0.6
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @require      https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
 // @require      https://update.greasyfork.org/scripts/480123/1281900/WME-EntryPoint.js
+// @connect      google.com
+// @connect      script.googleusercontent.com
+// @grant        GM_xmlhttpRequest
+// @grant        GM_addStyle
 // ==/UserScript==
 
 /* global GetJSON */
@@ -25,7 +29,7 @@
 
 (function main() {
     'use strict';
-    const HASH = "AKfycbwFQGbvmnCnnmkAOuNpB_0sqLZSmoZVXsMuJ7Geza1iVGhnUzXMb8LKG9HUE543irw";
+    const HASH = "AKfycbyM6KBAaOr_Hq1NNwAfXUcBWSKVVxioGzrfvIPyBnFc6yVPX-LkIKv6GgXVVetCOsz9";
 
     function createPoint(venue, isResidential = false) {
         console.log('Data->', venue);
