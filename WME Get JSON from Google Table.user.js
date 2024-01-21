@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.2.4
+// @version     0.2.6
 // @description none
 // @author      Sapozhnik
 // @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
@@ -85,7 +85,7 @@ class GetJSON {
             if (await this.validateHTTPResponse(res)) {
                 const out = await JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
-                    let cat = out.venues[0].categorіes;
+                    let cat = out.venues[0].lat;
                     console.log ('Категория', cat)
                     console.log('Данные получены', out);
                     return out;
