@@ -85,9 +85,7 @@ class GetJSON {
             if (await this.validateHTTPResponse(res)) {
                 const out = await JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
-                    let cat = out.venues[0].lat;
-                    console.log ('Категория', cat)
-                    console.log('Данные получены', out);
+                    console.log('Отримано s распаковано JSON:', out);
                     return out;
                 } else {
                     alert("Get G_JSON: Error getting JSON!");
