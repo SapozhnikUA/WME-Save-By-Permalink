@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.2.7
+// @version     0.2.8
 // @description none
 // @author      Sapozhnik
 // @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
@@ -84,7 +84,7 @@ class GetJSON {
             if (await this.validateHTTPResponse(res)) {
                 const out = await JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
-                    console.log('Отримано s распаковано JSON:', out);
+                    console.log('Отримано та распаковано JSON:', out);
                     return out;
                 } else {
                     alert("Get G_JSON: Error getting JSON!");
