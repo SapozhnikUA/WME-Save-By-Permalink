@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.1.8
+// @version     0.1.9
 // @description none
 // @author      Sapozhnik
 // @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
@@ -81,9 +81,9 @@ class GetJSON {
         if (!this.hash){
             return console.error ('Не установлен hash для ссылки!')
         }
-        const requestCallback = (res) => {
+        const requestCallback = async (res) => {
             if (this.validateHTTPResponse(res)) {
-                const out = JSON.parse(res.responseText);
+                const out = await JSON.parse(res.responseText);
                 if (out.dataStatus == "success") {
                     console.log('Данные получены', out);
                     return out;
@@ -100,12 +100,5 @@ class GetJSON {
         //        console.log('out', out.venues)
         return out.venues;
     }
-
-    // let out = {};
-    // (async () => {
-    //     out = await getJsonData();
-    //     console.log("Данные:", out);
-    // })();
-
-
-}
+F
+ }
