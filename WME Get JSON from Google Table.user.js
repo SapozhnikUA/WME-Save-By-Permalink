@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Get JSON from Google Table
 // @namespace   WazeUA
-// @version     0.1.9
+// @version     0.2.0
 // @description none
 // @author      Sapozhnik
 // @updateURL    https://github.com/SapozhnikUA/WME-Save-By-Permalink/raw/main/WME%20Get%20JSON%20from%20Google%20Table.user.js
@@ -100,5 +100,4 @@ class GetJSON {
         //        console.log('out', out.venues)
         return out.venues;
     }
-F
  }
