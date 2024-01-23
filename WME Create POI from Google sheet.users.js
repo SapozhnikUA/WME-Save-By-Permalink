@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.2.02
+// @version     0.2.03
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -43,8 +43,8 @@
             lat += 0.00003;
             lon += 0.00003;
         } else {
-            lat += 0.00008;
-            lon += 0.00008;
+            lat += 0.00006;
+            lon += 0.00006;
         }
 
         let WazeFeatureVectorLandmark = require('Waze/Feature/Vector/Landmark')
