@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.1.02
+// @version     0.2.01
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -26,23 +26,27 @@
 
 (function main() {
     'use strict';
+    const NAME = "WME Create POI ";
     const HASH = "AKfycbyqCEYHT1-jhQw8MZg1HCtKshro3bVJz7eGnG9rBl2BAZ1LmOxRKj-jOJ6EXJAZSPpMaw";
+    let UpdateObject;
 
     function createPoint(venue, isResidential = false) {
-        //console.clear();
-        console.group('Add POI:');
-        console.log('Venue:', venue);
-        console.log('Распаковка:', venue.streetName, venue.houseNumber, String(venue.categories), String(venue.cityName));
-
+        console.group(NAME + 'Add POI:');
+        //        console.log('Venue:', venue);
+        //        console.log(JSON.stringify(venue));
         if (venue.categories == "RPP") {
             isResidential = true;
         }
 
         let { lat, lon } = { lat: Number(venue.lat), lon: Number(venue.lon) }
         if (isResidential) {
-            lat += 0.00002;
-            lon += 0.00002;
+            lat += 0.00003;
+            lon += 0.00003;
+        } else {
+            lat += 0.00008;
+            lon += 0.00008;
         }
+
         let WazeFeatureVectorLandmark = require('Waze/Feature/Vector/Landmark')
         let WazeActionAddLandmark = require('Waze/Action/AddLandmark')
         let WazeActionUpdateObject = require('Waze/Action/UpdateObject')
@@ -60,16 +64,17 @@
         NewPoint.attributes.categories.push(venue.categories); //
         NewPoint.attributes.lockRank = venue.lockRank;
         NewPoint.attributes.residential = isResidential;
-        if (!isResidential) {
-            //            NewPoint.attributes.url = venue.url;
-            //            NewPoint.attributes.phone = venue.phone;
-            //            NewPoint.attributes.description = venue.description;
-            //            NewPoint.attributes.aliases = venue.aliases;
-            //            NewPoint.attributes.services = venue.services;
-            //            NewPoint.attributes.openingHours = venue.openingHours.map(item => new OpeningHour(item))
+        if (isResidential) {
+            //                        NewPoint.attributes.url = venue.url;
+            //                        NewPoint.attributes.phone = venue.phone;
+            //                        NewPoint.attributes.description = venue.description;
+            //                        NewPoint.attributes.aliases = venue.aliases;
+            //                        NewPoint.attributes.services = venue.services;
+            //                        NewPoint.attributes.openingHours = venue.openingHours.map(item => new OpeningHour(item))
         }
         // Клонируем ТФ
         NewPoint.attributes.entryExitPoints.push(new entryPoint({ primary: true, point: W.userscripts.toGeoJSONGeometry(pointGeometry.clone()) }));
+        console.log('Распаковка:', venue.streetName, venue.houseNumber, venue.categories, venue.cityName);
 
 
         // Указываем адрес
@@ -106,7 +111,6 @@
         // document.querySelector('input[id="day-checkbox-1"]').click()
         // document.querySelector('input[id="day-checkbox-2"]').click()
         // document.querySelector('.add-opening-hour .waze-btn-blue').click()
-
         console.log('The point was created.')
         console.groupEnd();
     }
@@ -115,22 +119,115 @@
     async function bootstrap() {
         const getJSON = new GetJSON(HASH);
         if (W && W.loginManager && W.loginManager.user && W.map && require) {
+            UpdateObject = require('Waze/Action/UpdateObject');
             getJSON.getJsonData().then(async data => {
                 if (data.dataStatus == 'success') {
-                    console.log('Status', data.dataStatus)
+                    //                    console.log('Status', data.dataStatus)
+                    let counterVenues = data.venues.length;
+                    console.log(NAME + "Всього отримано для обробки:", counterVenues);
                     for (let venue of data.venues) {
-                        let temp = data.venues[0].categorіes;
-                        console.log('data-venue.categorіes.', temp);
-                        //                    venue.categories = "ddddd";
-                        await createPoint(venue);
+                        console.log(NAME + "Залишилось обробити", counterVenues--);
+                        await moveMap(venue.lon, venue.lat);
+                        if (venue.categories === "ALL") {
+                            venue.categories == "RPP";
+                            if (await checkAddress(venue.streetName, venue.houseNumber, venue.name, venue.cityName, venue.categories) === true) {
+                                await createPoint(venue);
+                            }
+                            venue.categories == "OTHER";
+                            if (await checkAddress(venue.streetName, venue.houseNumber, venue.name, venue.cityName, venue.categories) === true) {
+                                venue.name = venue.houseNumber;
+                                await createPoint(venue);
+                            }
+                        }
+                        else {
+                            if (await checkAddress(venue.streetName, venue.houseNumber, venue.name, venue.cityName, venue.categories) === true) {
+                                await createPoint(venue);
+                            }
+                        }
                     }
+                    console.log(NAME + "Усі адреси додано");
                 }
             });
         } else {
-            setTimeout(bootstrap, 5000);
+            setTimeout(bootstrap, 3000);
         }
     }
 
+    function moveMap(lon, lat) {
+        //console.log('Сдвигаем...', lon, lat);
+        return new Promise((resolve) => {
+            W.map.setCenter(
+                OpenLayers.Layer.SphericalMercator.forwardMercator(
+                    parseFloat(lon),
+                    parseFloat(lat),
+                ),
+            );
+            setTimeout(() => resolve(), 1000) // Задержка перемещений
+        });
+    }
+
+    async function checkAddress(streetName = "вул. Миру", houseNumber = "16А", name = "test", cityName = "Сотниківка", categories = "RPP") {
+        houseNumber = houseNumber.toString();
+
+        console.group(NAME + 'Адреси:');
+        let residential;
+        if (categories == "RPP") {
+            residential = true;
+        } else {
+            residential = false;
+        }
+
+        let cities = W.model.cities.getObjectArray();
+        let address = W.model.streets.getObjectArray();
+        let hNumbers = W.model.venues.getObjectArray();
+
+        //        await waitLoadingData();
+
+        // Шукаємо місто
+        let cityId, streetId, houseId;
+        for (cityId of cities) {
+            if (cityId.attributes.name === cityName) {
+                break;
+            }
+        }
+        //                console.log ("cityId", cityId.attributes.id, cityId.attributes.name);
+
+        for (streetId of address) {
+            if (streetId.attributes.name === streetName && cityId.attributes.id === streetId.attributes.cityID) {
+                //            console.log ("Перевірка вулиці", streetId.attributes.name, streetName, cityId.attributes.id, streetId.attributes.cityID);
+                for (houseId of hNumbers) {
+                    //             console.log ("Перевірка номеру будинка:", JSON.stringify(houseId.attributes.id), JSON.stringify(houseId.attributes.houseNumber),houseNumber.toString(),houseId.attributes.streetID,streetId.attributes.id,houseId.attributes.residential,residential);
+                    if (houseId.attributes.houseNumber === houseNumber && houseId.attributes.streetID === streetId.attributes.id && houseId.attributes.residential === residential) {
+                        console.log("Спіймали дубль:", streetName, houseNumber, cityName, categories);
+                        console.groupEnd();
+                        return false;
+                    }
+                }
+            }
+        }
+        console.log("Не знайдено  базі:", streetName, houseNumber, cityName, categories);
+        console.groupEnd();
+
+        return true;
+    }
+
+    function waitLoadingData() {
+        return new Promise((resolve) => {
+            const cities = W.model.cities.getObjectArray();
+            const address = W.model.streets.getObjectArray();
+            const hNumbers = W.model.venues.getObjectArray();
+
+            if (cities.length == 0 || address.length == 0 || hNumbers.length == 0) {
+                console.log("считываем данные", cities, address, hNumbers);
+                setTimeout(() => resolve(waitLoadingData()), 2000);
+            } else {
+
+                resolve(cities, address, hNumbers);
+            }
+        });
+    }
+
+    console.clear();
     bootstrap();
 
 })();
