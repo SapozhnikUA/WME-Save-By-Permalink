@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.2.01
+// @version     0.2.02
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -129,11 +129,11 @@
                         console.log(NAME + "Залишилось обробити", counterVenues--);
                         await moveMap(venue.lon, venue.lat);
                         if (venue.categories === "ALL") {
-                            venue.categories == "RPP";
+                            venue.categories = "RPP";
                             if (await checkAddress(venue.streetName, venue.houseNumber, venue.name, venue.cityName, venue.categories) === true) {
                                 await createPoint(venue);
                             }
-                            venue.categories == "OTHER";
+                            venue.categories = "OTHER";
                             if (await checkAddress(venue.streetName, venue.houseNumber, venue.name, venue.cityName, venue.categories) === true) {
                                 venue.name = venue.houseNumber;
                                 await createPoint(venue);
