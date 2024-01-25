@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WME Create POI from Google sheet
 // @namespace   WazeUA
-// @version     0.2.05
+// @version     0.2.06
 // @description none
 // @author      Sapozhnik
 // @match       https://*.waze.com/editor*
@@ -40,10 +40,10 @@
 
         let { lat, lon } = { lat: Number(venue.lat), lon: Number(venue.lon) }
         if (isResidential) {
-            lat += 0.00001;
+            lat += 0.00000;
             lon += 0.00002;
         } else {
-            lat -= 0.00001;
+            lat += 0.00001;
             lon += 0.00004;
         }
 
