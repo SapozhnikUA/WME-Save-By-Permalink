@@ -19,13 +19,14 @@
   'use strict';
   let UpdateObject;
   let URL_LIST = [
-    'https://waze.com/uk/editor?env=row&lat=50.023553257&lon=35.67500889&s=3402715231638&zoomLevel=17&segments=248139480#lockRank=2',
-    'https://waze.com/uk/editor?env=row&lat=50.404891747&lon=30.61416692&s=3402715231638&zoomLevel=17&segments=103991770#lockRank=2',
-    'https://waze.com/uk/editor?env=row&lat=50.397933277&lon=30.63273371&s=3402715231638&zoomLevel=17&segments=201667765#lockRank=2',
-    'https://waze.com/uk/editor?env=row&lat=50.397933277&lon=30.63273371&s=3402715231638&zoomLevel=17&segments=160555041#lockRank=2',
-    'https://waze.com/uk/editor?env=row&lat=50.398391917&lon=30.63577127&s=3402715231638&zoomLevel=17&segments=331072837#lockRank=2',
-    'https://waze.com/uk/editor?env=row&lat=50.398249447&lon=30.63610700&s=3402715231638&zoomLevel=17&segments=331072838#lockRank=2',
-    'https://waze.com/uk/editor?env=row&lat=50.398145977&lon=30.63619964&s=3402715231638&zoomLevel=17&segments=331072835#lockRank=2',
+    // 'https://waze.com/uk/editor?env=row&lat=50.023553257&lon=35.67500889&s=3402715231638&zoomLevel=17&segments=248139480#lockRank=2',
+    'https://waze.com/uk/editor?env=row&lat=50.023553257&lon=35.67500889&s=3402715231638&zoomLevel=17&segments=248139480#alt_add=xxxx',
+    // 'https://waze.com/uk/editor?env=row&lat=50.404891747&lon=30.61416692&s=3402715231638&zoomLevel=17&segments=103991770#lockRank=2',
+    // 'https://waze.com/uk/editor?env=row&lat=50.397933277&lon=30.63273371&s=3402715231638&zoomLevel=17&segments=201667765#lockRank=2',
+    // 'https://waze.com/uk/editor?env=row&lat=50.397933277&lon=30.63273371&s=3402715231638&zoomLevel=17&segments=160555041#lockRank=2',
+    // 'https://waze.com/uk/editor?env=row&lat=50.398391917&lon=30.63577127&s=3402715231638&zoomLevel=17&segments=331072837#lockRank=2',
+    // 'https://waze.com/uk/editor?env=row&lat=50.398249447&lon=30.63610700&s=3402715231638&zoomLevel=17&segments=331072838#lockRank=2',
+    // 'https://waze.com/uk/editor?env=row&lat=50.398145977&lon=30.63619964&s=3402715231638&zoomLevel=17&segments=331072835#lockRank=2',
   ];
   const FLAGS_BIT = {
     tunnel: 0b00000001,
@@ -53,9 +54,9 @@
         if (url.hash) {
           await updateObjects(url);
           console.log(counter + '---->', counter_save, link);
-          if (++counter == counter_save || URL_LIST[URL_LIST.length -1] === link) { // считаем автосохранения
+          if (++counter == counter_save || URL_LIST[URL_LIST.length - 1] === link) { // считаем автосохранения
 
-     await save();
+            await save();
             counter = 0;
           }
         }
@@ -96,7 +97,7 @@
 
 
   function waitLoadingData(id) {
-    
+
     return new Promise((resolve) => {
       console.log('Ожидаем загрузку...', id);
       let counterWait = 0;
@@ -109,11 +110,11 @@
           counterWait++;
           if (counterWait > 50) {
             clearInterval(interval);
-              console.log('Несуществующий сегмент:', id);//  Если нет ID (сегмент не читается или был удален)
+            console.log('Несуществующий сегмент:', id);//  Если нет ID (сегмент не читается или был удален)
             resolve(null);
           }
         }
-      },200);
+      }, 200);
     });
   }
 
@@ -133,6 +134,12 @@
       const hashParams = new URLSearchParams(url.hash.replace('#', '')); // Создаем new экземпляр объекта
       // получаем данные для загрузки
       for (const [key, value] of hashParams.entries()) {
+
+        if (key == 'alt_add') {
+          // отримуємо наявні альтернативи
+          // додаємо альтернативу з хеша
+ 
+        }
 
         // обрабатываем флаги
         // снимаем ненужные
