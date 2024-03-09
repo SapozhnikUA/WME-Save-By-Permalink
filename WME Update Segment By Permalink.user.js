@@ -125,6 +125,7 @@
     const segments = (await Promise.all(
       searchParams.getAll('segments').map((id) => waitLoadingData(id)),
     )).filter(segment => segment);
+
     if (segments.length) {
       let flags = segments[0].attributes.flags
       // console.log(flags.toString(2));
@@ -132,13 +133,15 @@
 
       const updateProps = {}; // создаем объект
       const hashParams = new URLSearchParams(url.hash.replace('#', '')); // Создаем new экземпляр объекта
+      
       // получаем данные для загрузки
       for (const [key, value] of hashParams.entries()) {
 
         if (key == 'alt_add') {
           // отримуємо наявні альтернативи
           // додаємо альтернативу з хеша
- 
+          console.log ("------>", key, value)
+
         }
 
         // обрабатываем флаги
