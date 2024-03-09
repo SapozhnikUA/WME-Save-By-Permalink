@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        WME Update Segment By Permalink
 // @namespace   WazeUA
-// @version     0.0.10
+// @version     0.1.01
 // @description none
-// @author      ixxvivxxi
+// @author      Sapozhnik
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // ==/UserScript==
@@ -19,8 +19,9 @@
   'use strict';
   let UpdateObject;
   let URL_LIST = [
-    // 'https://waze.com/uk/editor?env=row&lat=50.023553257&lon=35.67500889&s=3402715231638&zoomLevel=17&segments=248139480#lockRank=2',
-    'https://waze.com/uk/editor?env=row&lat=50.023553257&lon=35.67500889&s=3402715231638&zoomLevel=17&segments=248139480#alt_add=xxxx',
+    "https://waze.com/uk/editor?env=row&lat=47.82211671&lon=31.17530734&zoomLevel=18&segments=370369928#alt_add=б-р Шевченка",
+    "https://waze.com/uk/editor?env=row&lat=50.39642115&lon=30.31761155&zoomLevel=18&segments=400132913#alt_add=б-р Шевченка",
+    "https://waze.com/uk/editor?env=row&lat=49.59246298&lon=33.18533790&zoomLevel=18&segments=332678945#alt_add=тупик Шевченка",
     // 'https://waze.com/uk/editor?env=row&lat=50.404891747&lon=30.61416692&s=3402715231638&zoomLevel=17&segments=103991770#lockRank=2',
     // 'https://waze.com/uk/editor?env=row&lat=50.397933277&lon=30.63273371&s=3402715231638&zoomLevel=17&segments=201667765#lockRank=2',
     // 'https://waze.com/uk/editor?env=row&lat=50.397933277&lon=30.63273371&s=3402715231638&zoomLevel=17&segments=160555041#lockRank=2',
@@ -89,7 +90,7 @@
           parseFloat(lat),
         ),
       );
-      setTimeout(() => resolve(), 100) // Задержка перемещений
+      setTimeout(() => resolve(), 1000) // Задержка перемещений
     });
   }
 
@@ -120,6 +121,8 @@
 
 
   async function updateObjects(url) {
+    var WazeActionAddAlternateStreet = require("Waze/Action/AddAlternateStreet");
+
 
     const searchParams = new URLSearchParams(url.search.replace('?', '')); // Получаем данные в ссылке после "?"
     const segments = (await Promise.all(
@@ -133,14 +136,32 @@
 
       const updateProps = {}; // создаем объект
       const hashParams = new URLSearchParams(url.hash.replace('#', '')); // Создаем new экземпляр объекта
-      
-      // получаем данные для загрузки
+
+      // получаем данные для загрузки из хеша
       for (const [key, value] of hashParams.entries()) {
 
         if (key == 'alt_add') {
           // отримуємо наявні альтернативи
+
           // додаємо альтернативу з хеша
-          console.log ("------>", key, value)
+          //                    console.log ("!!!!!! ------>", segments[0].attributes.primaryStreetID, segments[0].attributes.streetIDs)
+          var addr = segments[0].getAddress().attributes;
+
+          var altAttr = {
+            countryID: addr.country.attributes.id,
+            stateID: addr.state.attributes.id,
+            cityName: addr.city.attributes.name,
+            emptyCity: addr.city.attributes.name === null || addr.city.attributes.name === '',
+            streetName: value,
+            emptyStreet: false //problem.isEmpty
+          };
+
+          // удаляем ключ
+          delete
+
+            W.model.actionManager.add(new WazeActionAddAlternateStreet(segments[0], altAttr, {
+              streetIDField: 'UpdateAltName'
+            }));
 
         }
 
@@ -162,12 +183,12 @@
           updateProps['flags'] = flags;
         }
 
-        if (key != 'flags_set' && key != 'flags_unset') {
+        if (key != 'flags_set' && key != 'flags_unset' && key != 'alt_add') {
           updateProps[key] = parseInt(value);
         }
         console.log('PL hash: ' + key + ' = ' + value);
       }
-      //    console.log(updateProps);
+      //                console.log("updateProps", updateProps);
 
       await Promise.all(segments.map((segment) => {
         W.model.actionManager.add(new UpdateObject(segment, updateProps));
